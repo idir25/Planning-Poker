@@ -1,0 +1,44 @@
+body {
+  background-image: url("fond.jpg");
+  background-size: cover;
+}
+
+h1 {
+  font-family: 'Roboto Condensed';
+  font-size: 100px; 
+  letter-spacing: 8px;
+  color: #fff;
+  position: relative;
+  pointer-events: none;
+  text-shadow: 0 0 2px #FF0000, 0 0 30px #FF0000, 5px 9px 5px #333, 0 0 150px #FF0000; 
+  text-align: center;
+}
+
+#bouttons {
+  text-align: center;
+}
+
+.btn1, .btn2, .btn3 {
+  border-radius: 100px;
+  width: 450px;
+  height: 100px;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #300217;
+  color: #f8f1f1;
+  text-align: center; 
+  font-size: larger;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn1:hover, .btn2:hover, .btn3:hover {
+  background-color: #9e072c;
+  transform: scale(1.05);
+}
+
+.btn1:active, .btn2:active, .btn3:active {
+  transform: scale(0.95);
+}

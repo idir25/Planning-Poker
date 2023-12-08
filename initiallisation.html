@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Colourise.css" type="text/css"/>
+    <title>Planning Poker - Initialisation du Jeu</title>
+</head>
+<body>
+
+  <h1>PLANNING POKER</h1>
+    
+    <!-- Choix du nombre de joueurs -->
+    <h2>Veuillez Saisir Le Nombre De Joueurs</h2>
+    <p1>(Compris entre 3 et 12 joueurs)</p1>
+    <input type="number" id="nbrJoueurs" min="3" max="12" required>
+    <button id="suivant1">Suivant</button>
+
+    <!-- Choix des pseudos -->
+    <div id="choixPseudos" style="display: none;">
+        <h2>Pseudo des Joueurs</h2>
+        <div id="champsPseudos"></div>
+        <button id="suivant2">Suivant</button>
+    </div>
+
+    <!-- Choix du mode de jeu -->
+    <div id="choixModeJeu" style="display: none;">
+        <h2>Modes de Jeu</h2>
+        <select id="modeJeu" required>
+            <option value="unanimité">Unanimité</option>
+            <option value="moyenne">Moyenne</option>
+            <option value="majoritéRelative">Majorité Relative</option>
+        </select>
+        <button id="commencerJeu">Commencer le Jeu</button>
+    </div>
+    
+<script src = "fonction.JS"></script>
+</body>
+</html>
