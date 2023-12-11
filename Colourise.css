@@ -1,0 +1,35 @@
+
+h1{
+	font-family: 'Roboto Condensed';
+	font-size: 100px; 
+	letter-spacing: 8px;
+	color: #fff;
+	position: relative;
+	pointer-events: none;
+	text-shadow: 0 0 2px #FF0000, 0 0 30px #FF0000, 5px 9px 5px #333, 0 0 150px #FF0000; 
+}
+body {
+background-image: url("fond.jpg");
+background-size: cover;
+text-align: center;
+overflow: hidden;
+}
+h2 {
+	font-size: 2.2em;
+	color: #864526;
+	padding: 20px 10px 5px 10px;	
+}
+
+h3 {
+	font-size: 1.8em;
+	font-weight: normal;
+	padding: 20px 10px 5px 10px;	
+}
+
+p1,#champsPseudos {	
+font-size: larger;
+color: #fff;
+padding: 10px; margin: 0;
+
+}
+
