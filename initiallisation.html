@@ -12,28 +12,32 @@
     
     <!-- Choix du nombre de joueurs -->
     <h2>Veuillez Saisir Le Nombre De Joueurs</h2>
-    <p1>(Compris entre 3 et 12 joueurs)</p1>
-    <input type="number" id="nbrJoueurs" min="3" max="12" required><br><br>
+    
+
+    <input type="range" class="slider"  id="nbrJoueurs" min="3" max="12" value="3" required>&nbsp
+    <p1><span id="value"></span>&nbsp Joueurs</p1><br>
     <button id="suivant1">Suivant</button>
 
+      
+      
+      
     <!-- Choix des pseudos -->
-    <div id="choixPseudos" style="display: none;">
+    <div id="choixPseudos">
         <h2>Pseudo des Joueurs</h2>
         <div id="champsPseudos"></div>
         <button id="suivant2">Suivant</button>
     </div>
 
     <!-- Choix du mode de jeu -->
-    <div id="choixModeJeu" style="display: none;">
-        <h2>Modes de Jeu</h2>
-        <select id="modeJeu" required>
+    <div id="choixModeJeu">
+        <h2>Modes de Jeux</h2>
+        <select id="modeJeu" class="box" required>
             <option value="unanimité">Unanimité</option>
             <option value="moyenne">Moyenne</option>
             <option value="majoritéRelative">Majorité Relative</option>
         </select>
-        <button id="commencerJeu">Commencer le Jeu</button>
+        <button id="commencerJeu" class="sd">Commencer</button>
     </div>
-    
 <script src = "fonction.JS"></script>
 </body>
 </html>

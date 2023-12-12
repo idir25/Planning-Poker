@@ -1,6 +1,8 @@
 document.getElementById("suivant1").addEventListener("click", afficherPseudos);
 document.getElementById("suivant2").addEventListener("click", afficherModeJeu);
 document.getElementById("commencerJeu").addEventListener("click", commencerJeu);
+var showPseudos = document.getElementById("choixPseudos");
+var showMode = document.getElementById("choixModeJeu");
 
 
 function redirectToAcceuil2() {
@@ -10,6 +12,8 @@ function redirectToAcceuil2() {
 function afficherPseudos() {
     var nbrJoueurs = document.getElementById("nbrJoueurs").value;
     var champsPseudos = document.getElementById("champsPseudos");
+    
+
 
     // Vérifie que le nombre de joueurs est valide
     if (nbrJoueurs >= 3 && nbrJoueurs <= 12) {
@@ -22,7 +26,10 @@ function afficherPseudos() {
         }
 
         // Affiche la section des pseudos
-        document.getElementById("choixPseudos").style.display = "block";
+        showPseudos.style.visibility = "visible";
+        showPseudos.classList.add("show");
+        showPseudos.style.opacity="1";
+
     } else {
         alert("Veuillez choisir un nombre de joueurs entre 3 et 12.");
     }
@@ -42,7 +49,11 @@ function afficherModeJeu() {
     }
 
     if (tousRemplis) {
-        document.getElementById("choixModeJeu").style.display = "block";
+
+        showMode.style.visibility = "visible";
+        showMode.classList.add("show");
+        showMode.style.opacity="1";
+        
     } else {
         alert("Veuillez remplir tous les champs de pseudos.");
     }
@@ -52,3 +63,10 @@ function commencerJeu() {
     alert("Le jeu commence!");
 }
 
+var slide = document.getElementById("nbrJoueurs");
+var out = document.getElementById("value");
+
+ out.innerHTML=slide.value;
+ slide.oninput=function(){
+   out.innerHTML=this.value;
+};

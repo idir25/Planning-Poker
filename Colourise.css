@@ -1,3 +1,40 @@
+body {
+	background-image: url("fond.jpg");
+	background-size: cover;
+	text-align: center;
+}
+
+#choixPseudos,#choixModeJeu {
+	opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+}
+
+#choixPseudos.show,#choixModeJeu.show {
+	opacity: 1;
+    visibility: visible;
+}
+
+
+input[type=range] {
+	height: 25px;
+	-webkit-appearance: none;	
+	width: 	15%;
+	background-color: #4e0303;
+	box-shadow: #fffdfd;
+	border-radius: 10px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+	box-shadow: 1px 1px 1px #f0ecec;
+	border: 0px solid #fdfafa;
+	height: 15px;
+	width: 30px;
+	border-radius: 12px;
+	background: #e3d0d0;
+	cursor: pointer;
+	-webkit-appearance: none;}
+	
 h1{
 	font-family: 'Roboto Condensed';
 	font-size: 50px; 
@@ -8,17 +45,13 @@ h1{
 	text-shadow: 0 0 2px #FF0000, 0 0 30px #FF0000, 5px 9px 5px #333, 0 0 150px #FF0000; 
 }
 
-body {
-background-image: url("fond.jpg");
-background-size: cover;
-text-align: center;
-overflow: hidden;
-}
-
 h2 {
 	font-size: 2.2em;
 	color: #864526;
-	padding: 20px 10px 5px 10px;	
+	padding: 20px 10px 5px 10px;
+	margin-top: -31px;
+	position: relative;
+	
 }
 
 h3 {
@@ -27,35 +60,58 @@ h3 {
 	padding: 20px 10px 5px 10px;	
 }
 
-p1,#champsPseudos {	
-color: #fff;
-padding:10px; margin: 0;
+p1{
+	color: #fff;
+	margin-top: 1px;
+	position: absolute;
+	font-size: larger;
+	font-family: 'Times New Roman', Times, serif;
 }
 
-input{
-background-color: black;
-color: #fff;
-text-align: center;
+#champsPseudos {	
+	color: #fff;
+	margin-top: -31px;
+	padding: 4px;
 }
 
-#suivant1, #suivant2{
-width: 80px;
-height: 40px;
-border-color: #FF0000;
-background-color: black;
-color: #fff;
-border-radius: 6cm;
-}
-afficherPseudos{
-transition-duration: 1000ms;
+.box {
+	width: 100px;
+	height: 30px;
+	border: 1px solid #f13232;
+	font-size: 17px;
+	color: #701711;
+	background-color: #eee;
+	border-radius: 5px;
 }
 
-#suivant1:hover, #suivant2:hover{
+#modeJeu{
+	text-align: center;
+	position: relative;
+	top: -30px;
+	left: 50px;
+}
+
+#nbrJoueurs{
+	color: #fff;
+	text-align: center;
+}
+
+#suivant1, #suivant2,#commencerJeu{
+	margin-bottom: 20px;
+	width: 90px;
+	height: 30px;
+	border-color: #FF0000;
+	background-color: black;
+	color: #fff;
+	border-radius: 6cm;
+}
+
+#suivant1:hover, #suivant2:hover,#commencerJeu:hover{
 	background-color: #9e072c;
 	transform: scale(1.05);
- }
-
-
- 
-  
- 
+}
+.sd{
+	position: relative;
+	top: 10px;
+	right: 50px;
+}
