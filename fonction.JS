@@ -11,6 +11,7 @@ if (window.location.href.indexOf("initiallisation.html") > -1) {
 	
 	}
 }
+
 // Fonction pour relier les pages html entre elles
 function pageAcceuil2() {
     window.location.href = 'acceuil2.html';
@@ -81,26 +82,38 @@ function afficherModeJeu() {
 		}
     }
     
-    if (tousRemplis) {
+        if (tousRemplis) {
+            // Stockage des pseudos dans localStorage
+            localStorage.setItem('pseudos', JSON.stringify(listJoueur));
 
-        showMode.style.visibility = "visible";
-        showMode.classList.add("show");
-        showMode.style.opacity="1";
-		alert(listJoueur[1])
+            //afficher le menu mode de jeu
+            showMode.style.visibility = "visible";
+            showMode.classList.add("show");
+            showMode.style.opacity="1";
+            alert(listJoueur[1])
         
+        } else {
+            alert("Veuillez remplir tous les champs de pseudos.");
+        }
+        
+    }
+function commencerJeu() {
+    // Récupérer les pseudos depuis localStorage
+    var pseudosString = localStorage.getItem('pseudos');
+
+    // Vérifier si des pseudos ont été stockés
+    if (pseudosString) {
+        // Convertir la chaîne JSON en tableau
+        var pseudos = JSON.parse(pseudosString);
+
+        // Faire quelque chose avec les pseudos (par exemple, les afficher)
+        for (var i = 0; i < pseudos.length; i++) {
+            console.log('Joueur ' + (i + 1) + ': ' + pseudos[i]);
+        }
     } else {
-        alert("Veuillez remplir tous les champs de pseudos.");
+        // Aucun pseudo n'a été stocké
+        console.log('Aucun pseudo n\'a été stocké.');
     }
 }
 
-function commencerJeu() {
-	if (window.location.href.indexOf("partie.html") > -1) {
-		alert(listJoueur[0])
-		document.getElementById("nom_joueur").textContent = listJoueur[0]	// Test pour afficher les pseudos dans la partie
-		document.getElementById("num_fonction").textContent = 1 // On affiche la première fonctionnalité
-		get('num_fonction').innerHTML = 1;
-		document.getElementById("nb_fonction").textContent = 10 // Test du nombre de fonctionnalité
-	}
-	
-}
 
