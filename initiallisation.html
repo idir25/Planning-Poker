@@ -19,11 +19,29 @@
 
     
     <!-- Choix des pseudos -->
-        <div id="choixPseudos">
-            <h2>Pseudo des Joueurs</h2>
-            <div id="champsPseudos"></div>
-            <button id="suivant2">Suivant</button>
-        </div>
+    <div id="choixPseudos">
+        <h2>Pseudo des Joueurs</h2>
+        <div id="champsPseudos"></div>
+        <button id="suivant2">Suivant</button>
+    </div>
+
+
+    <!-- Choix du nombre de fonctionnalitées -->
+    <div id="choixNbrFonction">
+        <h2>Veuillez Saisir Le Nombre De fonctionnalitées</h2>
+    
+        <input type="range" class="slider"  id="nbrFonction" min="3" max="12" value="3" required>&nbsp
+        <p1><span id="value"></span>&nbsp Joueurs</p1><br>
+        <button id="suivant3">Suivant</button>
+    </div>
+
+
+    <!-- Choix des Fonctionnalitées -->
+    <div id="choixFonction">
+        <h2>Fonctionnalitées</h2>
+        <div id="champsFonction"></div>
+        <button id="suivant4">Suivant</button>
+    </div>
     
 
     <!-- Choix du mode de jeu -->
@@ -34,8 +52,12 @@
             <option value="moyenne">Moyenne</option>
             <option value="majoritéRelative">Majorité Relative</option>
         </select>
-        <button id="commencerJeu" class="sd" onclick="pagePartie()">Commencer</button>
+		<button id="commencerJeu">Commencer</button>
+        <!-- <button id="commencerJeu" class="sd" onclick="pagePartie()">Commencer</button> -->
     </div>
+
+
+    
 
 <script src = "fonction.JS"></script>
 </body>

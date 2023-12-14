@@ -1,7 +1,10 @@
 // On vérifie si la page est "initilisation.html" :
 if (window.location.href.indexOf("initiallisation.html") > -1) {
 	document.getElementById("suivant1").addEventListener("click", afficherPseudos);
-	document.getElementById("suivant2").addEventListener("click", afficherModeJeu);
+	document.getElementById("suivant2").addEventListener("click", afficherNbrFonction);
+    document.getElementById("suivant3").addEventListener("click", afficherFonction);
+    document.getElementById("suivant4").addEventListener("click", afficherModeJeu);
+	document.getElementById("commencerJeu").addEventListener("click", pagePartie);
 	var slide = document.getElementById("nbrJoueurs");
 	var out = document.getElementById("value");
 
@@ -11,6 +14,15 @@ if (window.location.href.indexOf("initiallisation.html") > -1) {
 	
 	}
 }
+
+// On vérifie si la page est "partie.html" :
+if (window.location.href.indexOf("partie.html") > -1) {
+	window.addEventListener("load", commencerJeu);
+}
+
+
+
+
 
 // Fonction pour relier les pages html entre elles
 function pageAcceuil2() {
@@ -24,17 +36,27 @@ function redirectToAcceuil2() {
 }
 
 
-// On vérifie si la page est "partie.html" :
-if (window.location.href.indexOf("partie.html") > -1) {
-	window.addEventListener("load", commencerJeu);
-}
 
+
+
+/////////////////////////////////////  Page Initialisation.html ///////////////////////////////////////////
+
+
+// On créer la liste des joueurs si elle n'existe pas
 if (listJoueur == undefined) {
 	var listJoueur = []
 }
 
+// On créer la liste des fonctionnalitées si elle n'existe pas
+if (listFonction == undefined) {
+	var listFonction = []
+}
+
 var showPseudos = document.getElementById("choixPseudos");
 var showMode = document.getElementById("choixModeJeu");
+//
+var showFonction = document.getElementById("choixFonction");
+var showNbrFonction = document.getElementById("choixNbrFonction");
 
 
 
@@ -65,12 +87,10 @@ function afficherPseudos() {
     
 }
 
-// Fonction pour afficher la section du mode de jeu
-function afficherModeJeu() {
-    // Vérifie que tous les champs de pseudos sont remplis
+// Affichage de l'option de sélection du nombre de fonctionnalitées :
+function afficherNbrFonction() {
     var pseudosInputs = document.querySelectorAll('input[name="pseudos[]"]');
     var tousRemplis = true;
-
     for (var i = 0; i < pseudosInputs.length; i++) {
         if (pseudosInputs[i].value.trim() === "") {
             tousRemplis = false;
@@ -82,24 +102,89 @@ function afficherModeJeu() {
 		}
     }
     
+    if (tousRemplis) {
+        // Stockage des pseudos dans localStorage
+        localStorage.setItem('pseudos', JSON.stringify(listJoueur));
+
+        //afficher le choix du nombre de fonctionnalitées : 
+        showNbrFonction.style.visibility = "visible";
+        showNbrFonction.classList.add("show");
+        showNbrFonction.style.opacity="1";
+        
+    } else {
+        alert("Veuillez remplir tous les champs de pseudos.");
+    }
+        
+}
+
+// Affichage de l'option de saisie des noms des fonctionnalitées : 
+function afficherFonction() {
+    var nbrFonction = document.getElementById("nbrFonction").value;
+    var champsPseudos = document.getElementById("champsFonction");
+    
+
+
+    // Vérifie que le nombre de fonctionnalitées est valide
+    if (nbrFonction >= 3 && nbrFonction <= 12) {
+        // Efface le contenu précédent
+        champsFonction.innerHTML = '';
+
+        // Génère les champs de saisie pour les pseudos
+        for (var i = 1; i <= nbrFonction; i++) {
+            champsPseudos.innerHTML += `Fonctionnalitée ${i}: <input type="text" name="fonction[]"><br>`;
+        }
+
+        // Affiche la section des fonctionnalitées : 
+        showFonction.style.visibility = "visible";
+        showFonction.classList.add("show");
+        showFonction.style.opacity="1";
+
+    } else {
+        alert("Veuillez choisir un nombre de fonctionnalitées entre 3 et 12.");
+    }
+    
+}
+
+// Fonction pour afficher la section du mode de jeu
+function afficherModeJeu() {
+    // Vérifie que tous les champs de pseudos sont remplis
+    var fonctionInputs = document.querySelectorAll('input[name="fonction[]"]');
+    var tousRemplis = true;
+
+    for (var i = 0; i < fonctionInputs.length; i++) {
+        if (fonctionInputs[i].value.trim() === "") {
+            tousRemplis = false;
+			listFonction = [] // On réinitialise la liste des fonctionnalitées
+            break; // Pas besoin de continuer la vérification si un champ est vide
+        }
+		else {
+			listFonction.push(fonctionInputs[i].value.trim()) // On ajoute les fonctionnalitées à la liste des fonctionnalitées
+		}
+    }
+    
         if (tousRemplis) {
             // Stockage des pseudos dans localStorage
-            localStorage.setItem('pseudos', JSON.stringify(listJoueur));
+            localStorage.setItem('fonction', JSON.stringify(listFonction));
 
             //afficher le menu mode de jeu
             showMode.style.visibility = "visible";
             showMode.classList.add("show");
             showMode.style.opacity="1";
-            alert(listJoueur[1])
+            alert(listFonction[1])
         
         } else {
-            alert("Veuillez remplir tous les champs de pseudos.");
+            alert("Veuillez remplir tous les champs de fonctionnalitées.");
         }
         
     }
+
+/////////////////////////////////// Page Partie.html /////////////////////////////////////////////////
+
 function commencerJeu() {
     // Récupérer les pseudos depuis localStorage
+
     var pseudosString = localStorage.getItem('pseudos');
+    var fonctionString = localStorage.getItem('fonction')
 
     // Vérifier si des pseudos ont été stockés
     if (pseudosString) {
@@ -108,12 +193,29 @@ function commencerJeu() {
 
         // Faire quelque chose avec les pseudos (par exemple, les afficher)
         for (var i = 0; i < pseudos.length; i++) {
-            console.log('Joueur ' + (i + 1) + ': ' + pseudos[i]);
+            listJoueur.push(pseudos[i]); // On enregistre les pseudos dans la liste pseudo
         }
+        document.getElementById("nom_joueur").textContent = listJoueur[0];
     } else {
         // Aucun pseudo n'a été stocké
         console.log('Aucun pseudo n\'a été stocké.');
     }
+
+    // Vérifier si les fonctionnalitées ont été stockés
+    if (fonctionString) {
+        // Convertir la chaîne JSON en tableau
+        var fonction = JSON.parse(fonctionString);
+
+        for (var i = 0; i < fonction.length; i++) {
+            listFonction.push(fonction[i]); // On enregistre les fonctionnalitées dans la liste des fonctionnalitées
+        }
+        document.getElementById("nom_fonction").textContent = listFonction[0];
+        document.getElementById("num_fonction").textContent = '1';
+    } else {
+        // Aucun pseudo n'a été stocké
+        console.log('Aucune fonctionnalitée n\'a été stocké.');
+    }
+
 }
 
 
