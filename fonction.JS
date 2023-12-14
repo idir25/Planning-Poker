@@ -11,6 +11,17 @@ if (window.location.href.indexOf("initiallisation.html") > -1) {
 	
 	}
 }
+// Fonction pour relier les pages html entre elles
+function pageAcceuil2() {
+    window.location.href = 'acceuil2.html';
+}
+function pagePartie() {
+    window.location.href = 'partie.html';
+}
+function redirectToAcceuil2() {
+    window.location.href = 'C:/Users/yidir/Desktop/dd/acceuil2.html';
+}
+
 
 // On vérifie si la page est "partie.html" :
 if (window.location.href.indexOf("partie.html") > -1) {
@@ -25,11 +36,6 @@ var showPseudos = document.getElementById("choixPseudos");
 var showMode = document.getElementById("choixModeJeu");
 
 
-
-
-function redirectToAcceuil2() {
-    window.location.href = 'C:/Users/yidir/Desktop/dd/acceuil2.html';
-}
 
 function afficherPseudos() {
     var nbrJoueurs = document.getElementById("nbrJoueurs").value;
@@ -55,6 +61,7 @@ function afficherPseudos() {
     } else {
         alert("Veuillez choisir un nombre de joueurs entre 3 et 12.");
     }
+    
 }
 
 // Fonction pour afficher la section du mode de jeu
@@ -73,7 +80,7 @@ function afficherModeJeu() {
 			listJoueur.push(pseudosInputs[i].value.trim()) // On ajoute les joueurs à la liste des joueurs 
 		}
     }
-
+    
     if (tousRemplis) {
 
         showMode.style.visibility = "visible";
