@@ -44,7 +44,6 @@ h1{
 	pointer-events: none;
 	text-shadow: 0 0 2px #FF0000, 0 0 30px #FF0000, 5px 9px 5px #333, 0 0 150px #FF0000; 
 }
-
 h2 {
 	font-size: 2.2em;
 	color: #864526;
@@ -52,7 +51,7 @@ h2 {
 	margin-top: -31px;
 	position: relative;
 	
-}
+}	
 
 h3 {
 	font-size: 1.8em;
@@ -96,7 +95,7 @@ p1{
 	text-align: center;
 }
 
-#suivant1, #suivant2,#commencerJeu{
+#suivant1, #suivant2, #suivant3, #suivant4, #commencerJeu{
 	margin-bottom: 20px;
 	width: 90px;
 	height: 30px;
@@ -106,7 +105,7 @@ p1{
 	border-radius: 6cm;
 }
 
-#suivant1:hover, #suivant2:hover,#commencerJeu:hover{
+#suivant1:hover, #suivant2:hover, #suivant3:hover, #suivant4:hover, #commencerJeu:hover{
 	background-color: #9e072c;
 	transform: scale(1.05);
 }

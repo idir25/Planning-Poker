@@ -1,0 +1,37 @@
+body{
+	background-color: rgb(62, 14, 6);
+}
+#deck {
+    display: flex;
+    justify-content: center; 
+}
+.cartes {
+	margin: 0 5px; 
+}
+
+h1 {
+	text-align: center;
+	color: #f1edea;
+}
+h2{
+    text-align: center;
+	font-family: 'Roboto Condensed';
+	font-size: 50px; 
+	letter-spacing: 8px;
+	color: #fff;
+	position: relative;
+	pointer-events: none;
+	text-shadow: 0 0 2px #FF0000, 0 0 30px #FF0000, 5px 9px 5px #333, 0 0 150px #FF0000; 
+}
+#suivant{
+     width: 200px;
+	 height: 50px;
+	 position: relative;
+	 top: 280px;
+	 left: 500px;
+	 
+}
+#num_fonction{
+	display: inline-block;
+
+}

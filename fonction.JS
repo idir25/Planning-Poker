@@ -5,26 +5,37 @@ if (window.location.href.indexOf("initiallisation.html") > -1) {
     document.getElementById("suivant3").addEventListener("click", afficherFonction);
     document.getElementById("suivant4").addEventListener("click", afficherModeJeu);
 	document.getElementById("commencerJeu").addEventListener("click", pagePartie);
-	var slide = document.getElementById("nbrJoueurs");
-	var out = document.getElementById("value");
+    
 
-	out.innerHTML=slide.value;
-	slide.oninput=function(){
-	out.innerHTML=this.value;
-	
-	}
+    
+/////////////AFFICHER LE NOMBRE DE PSEUDOS ET DE FONCTIONNALITES//////// 
+
+// Récupérer l'élément du formulaire pour le nombre de pseudos
+var slide = document.getElementById("nbrJoueurs");
+
+// Récupérer l'élément où afficher la valeur du nombre de pseudos
+var out = document.getElementById("value");
+
+// Utiliser une fonction fléchée pour définir l'action lors de l'input
+slide.addEventListener("input", () => out.textContent = slide.value);
+
+// Appeler la fonction initiale pour afficher la valeur initiale
+out.textContent = slide.value;
+//Meme chose pour les fonctionnalités 
+var slide1 = document.getElementById("nbrFonction");
+var out1 = document.getElementById("value1");
+slide1.addEventListener("input", () => out1.textContent = slide1.value);
+out1.textContent = slide1.value;
+
 }
+
 
 // On vérifie si la page est "partie.html" :
 if (window.location.href.indexOf("partie.html") > -1) {
 	window.addEventListener("load", commencerJeu);
 }
 
-
-
-
-
-// Fonction pour relier les pages html entre elles
+// Fonctions pour relier les pages html entre elles
 function pageAcceuil2() {
     window.location.href = 'acceuil2.html';
 }
@@ -120,18 +131,18 @@ function afficherNbrFonction() {
 // Affichage de l'option de saisie des noms des fonctionnalitées : 
 function afficherFonction() {
     var nbrFonction = document.getElementById("nbrFonction").value;
-    var champsPseudos = document.getElementById("champsFonction");
+    var champsFonction = document.getElementById("champsFonction");
     
 
 
     // Vérifie que le nombre de fonctionnalitées est valide
-    if (nbrFonction >= 3 && nbrFonction <= 12) {
+    if (nbrFonction >= 1 && nbrFonction <= 15) {
         // Efface le contenu précédent
         champsFonction.innerHTML = '';
 
         // Génère les champs de saisie pour les pseudos
         for (var i = 1; i <= nbrFonction; i++) {
-            champsPseudos.innerHTML += `Fonctionnalitée ${i}: <input type="text" name="fonction[]"><br>`;
+            champsFonction.innerHTML += `Fonctionnalitée ${i}: <input type="text" name="fonction[]"><br>`;
         }
 
         // Affiche la section des fonctionnalitées : 
@@ -217,5 +228,6 @@ function commencerJeu() {
     }
 
 }
+
 
 
