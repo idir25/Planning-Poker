@@ -30,6 +30,7 @@ out1.textContent = slide1.value;
 }
 
 
+
 // On vérifie si la page est "partie.html" :
 if (window.location.href.indexOf("partie.html") > -1) {
 	window.addEventListener("load", commencerJeu);
@@ -45,8 +46,6 @@ function pagePartie() {
 function redirectToAcceuil2() {
     window.location.href = 'C:/Users/yidir/Desktop/dd/acceuil2.html';
 }
-
-
 
 
 
@@ -229,5 +228,40 @@ function commencerJeu() {
 
 }
 
+// ANIMATION DES CARTES
+
+var cartes = document.querySelectorAll(".cartes");
+
+cartes.forEach(function (carte) {
+  carte.addEventListener("mouseenter", () => {
+    carte.classList.add("transition");
+
+    carte.addEventListener("click", ()=>{
+    alert("Carte Sélectionné !")
+    })
+  });
+//   ANNULER L'EFFET DE L'ANIMATION QUAND ON SORS DE LA CARTE
+  carte.addEventListener("mouseleave", () => {
+    carte.classList.remove("transition");
+  });
+});
+
+//ACTUALISER LES FONCTIONNALTES QUAND ON CLIQUE SUR SUIVANT
+
+var indexFonction = 0; // Variable pour suivre l'index actuel de la fonctionnalité
+var fonctionnaliteSuivante = document.getElementById("suivant");
+
+fonctionnaliteSuivante.addEventListener("click", () => {
+    indexFonction++;
+
+    if (indexFonction < listFonction.length) {
+        document.getElementById("nom_fonction").textContent = listFonction[indexFonction];
+        document.getElementById("num_fonction").textContent = (indexFonction + 1).toString();
+    } else {
+        // Si nous atteignons la fin de la liste, on peux choisir de réinitialiser à zéro ou effectuer d'autres actions.
+        console.log('Fin des fonctionnalités.');
+        alert("FIN DE LA PARTIE !")
+    }
+});
 
 

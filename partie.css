@@ -4,17 +4,34 @@ body{
 #deck {
     display: flex;
     justify-content: center; 
-}
+} 
+  /* Utilisez les couleurs en fonction de la difficulté */
+#carte0 { background-color: #5cb85c;transition: transform 0.3s ease;}
+#carte1 { background-color: #8bc34a;transition: transform 0.3s ease;}
+#carte2 { background-color: #cddc39; transition: transform 0.3s ease;}
+#carte3 { background-color: #ffc107; transition: transform 0.3s ease;}
+#carte5 { background-color: #ff9800; transition: transform 0.3s ease;}
+#carte8 { background-color: #f44336; transition: transform 0.3s ease;}
+#carte13 { background-color: #e91e63; transition: transform 0.3s ease;}
+#carte20 { background-color: #9c27b0; transition: transform 0.3s ease;}
+#carte40 { background-color: #673ab7; transition: transform 0.3s ease;}
+#carte100 { background-color: #607d8b; transition: transform 0.3s ease;}
+#carte100 { background-color: #990000; transition: transform 0.3s ease;}
+#carte_cafe { background-color: #644101; transition: transform 0.3s ease;}
+#carte_interro {background: linear-gradient(to right, #2e3d49, #34495e, #2c3e50, #2980b9, #3498db, #1abc9c, #27ae60, #7f8c8d);transition: transform 0.3s ease;}
+
 .cartes {
 	margin: 0 5px; 
+	border-radius: 10%;
 }
 
 h1 {
 	text-align: center;
 	color: #f1edea;
 }
+
 h2{
-    text-align: center;
+	text-align: center;
 	font-family: 'Roboto Condensed';
 	font-size: 50px; 
 	letter-spacing: 8px;
@@ -23,11 +40,16 @@ h2{
 	pointer-events: none;
 	text-shadow: 0 0 2px #FF0000, 0 0 30px #FF0000, 5px 9px 5px #333, 0 0 150px #FF0000; 
 }
+
+.transition{
+		transform: scale(1.2);		
+}
+
 #suivant{
-     width: 200px;
-	 height: 50px;
-	 position: relative;
-	 top: 280px;
+	width: 200px;
+	height: 50px;
+	position: relative;
+	top: 280px;
 	 left: 500px;
 	 
 }
