@@ -13,28 +13,41 @@
 <div id="wrap">
     <div id="header">
         <h2>Fonctionnalité n° : <div id="num_fonction" style="display: inline-block"></div></h2>
-        <h1 id="logo-text"><a title=""> <div id="nom_fonction"> texte test </div> </a> </h1>
+        <h1 id="logo-text"><a title=""> <div id="nom_fonction"> texte test </div> </a> </h1> <br/>
+        <div id="avis1"></div>
+        <div id="avis2"></div>
     </div>
-<button id="suivant">Fonctionnalité Suivante</button>
+<!-- <button id="suivant">Fonctionnalité Suivante</button> -->
     <div id="content-wrap">    
         <div id="main" >    
             <div id="deck">
-                <div id="carte0" class="cartes"> <img src="cartes/cartes_0.svg" style="width:75px;"/> </div>  <!-- 1ère case de la 1ère ligne (en haut à gauche) -->
-                <div id="carte1" class="cartes"> <img src="cartes/cartes_1.svg" style="width:75px;"/> </div>  
-                <div id="carte2" class="cartes"> <img src="cartes/cartes_2.svg" style="width:75px;"/> </div> 
-                <div id="carte3" class="cartes"> <img src="cartes/cartes_3.svg" style="width:75px;"/> </div>  
-                <div id="carte5" class="cartes"> <img src="cartes/cartes_5.svg" style="width:75px;"/> </div> 
-                <div id="carte8" class="cartes"> <img src="cartes/cartes_8.svg" style="width:75px;"/> </div>  
-                <div id="carte13" class="cartes"> <img src="cartes/cartes_13.svg" style="width:75px;"/> </div>
-                <div id="carte20" class="cartes"> <img src="cartes/cartes_20.svg" style="width:75px;"/> </div>
-                <div id="carte40" class="cartes"> <img src="cartes/cartes_40.svg" style="width:75px;"/> </div>
-                <div id="carte100" class="cartes"> <img src="cartes/cartes_100.svg" style="width:75px;"/> </div>
-                <div id="carte_cafe" class="cartes"> <img src="cartes/cartes_cafe.svg" style="width:75px;"/> </div>
-                <div id="carte_interro" class="cartes"> <img src="cartes/cartes_interro.svg" style="width:75px;"/> </div>
+                <div id="0" class="cartes"> <img src="cartes/cartes_0.svg" style="width:75px;"/> </div>  <!-- 1ère case de la 1ère ligne (en haut à gauche) -->
+                <div id="1" class="cartes"> <img src="cartes/cartes_1.svg" style="width:75px;"/> </div>  
+                <div id="2" class="cartes"> <img src="cartes/cartes_2.svg" style="width:75px;"/> </div> 
+                <div id="3" class="cartes"> <img src="cartes/cartes_3.svg" style="width:75px;"/> </div>  
+                <div id="5" class="cartes"> <img src="cartes/cartes_5.svg" style="width:75px;"/> </div> 
+                <div id="8" class="cartes"> <img src="cartes/cartes_8.svg" style="width:75px;"/> </div>  
+                <div id="13" class="cartes"> <img src="cartes/cartes_13.svg" style="width:75px;"/> </div>
+                <div id="20" class="cartes"> <img src="cartes/cartes_20.svg" style="width:75px;"/> </div>
+                <div id="40" class="cartes"> <img src="cartes/cartes_40.svg" style="width:75px;"/> </div>
+                <div id="100" class="cartes"> <img src="cartes/cartes_100.svg" style="width:75px;"/> </div>
+                <div id="cafe" class="cartes"> <img src="cartes/cartes_cafe.svg" style="width:75px;"/> </div>
+                <div id="???" class="cartes"> <img src="cartes/cartes_interro.svg" style="width:75px;"/> </div>
+            </div>
+            <div id="debat1">
+                <h1>Avis de <p1 id="min_joueur"></p1> qui a voté(e) : <p1 id = "min_vote"></p1></h1>
+                <textarea name="zone_debat1" rows="5" cols="30"></textarea>
+                <button id="validerAvis1">Valider</button>
+            </div>
+            <div id="debat2">
+                <h1>Avis de <p1 id="max_joueur"></p1> qui a voté(e) : <p1 id = "max_vote"></p1></h1>
+                <textarea name="zone_debat2" rows="5" cols="30"></textarea>
+                <button id="validerAvis2">Valider</button>
             </div>
         </div>
+        
         <div id="sidebar">
-            <h1>C'est au tour de :<p1 id="nom_joueur"></p1></h1>
+            <h1>C'est au tour du joueur <p1 id="num_joueur"></p1> :<p1 id="nom_joueur"></p1></h1>
         </div>
     </div>
 </div>

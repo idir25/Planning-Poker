@@ -34,6 +34,8 @@ out1.textContent = slide1.value;
 // On vérifie si la page est "partie.html" :
 if (window.location.href.indexOf("partie.html") > -1) {
 	window.addEventListener("load", commencerJeu);
+    document.getElementById("validerAvis1").addEventListener("click", validAvis1);
+    document.getElementById("validerAvis2").addEventListener("click", validAvis2);
 }
 
 // Fonctions pour relier les pages html entre elles
@@ -41,6 +43,9 @@ function pageAcceuil2() {
     window.location.href = 'acceuil2.html';
 }
 function pagePartie() {
+    var modeJeu = document.getElementById('modeJeu').textContent;
+    localStorage.setItem('regle', JSON.stringify(modeJeu));
+    localStorage.setItem('pseudos', JSON.stringify(listJoueur));
     window.location.href = 'partie.html';
 }
 function redirectToAcceuil2() {
@@ -51,16 +56,22 @@ function redirectToAcceuil2() {
 
 /////////////////////////////////////  Page Initialisation.html ///////////////////////////////////////////
 
-
+//// ATTENTION : IL Y A PLUSIEURS VARIABLES GLOBALES //////
 // On créer la liste des joueurs si elle n'existe pas
+var voteMin, voteMax, joueurMin, joueurMax;
 if (listJoueur == undefined) {
-	var listJoueur = []
+	var listJoueur = [];
 }
 
 // On créer la liste des fonctionnalitées si elle n'existe pas
 if (listFonction == undefined) {
-	var listFonction = []
+	var listFonction = [];
 }
+
+var noteJoueur = []; // Liste qui contient le vote des joueurs à chaque fonctionnalitée
+var noteFonction = []; // Liste qui contient le niveau de difficulté de chaque fonctionnalitée
+var tourVote = 1; // Tour de vote par rapport à 1 fonctionnalitée (par exemple, si les joueurs n'ont pas encore
+                  // voté la fonctionnalité 3, ils sont au tour 1 ; si ils ont déjà voté 4 fois, ils sont au tour 5)
 
 var showPseudos = document.getElementById("choixPseudos");
 var showMode = document.getElementById("choixModeJeu");
@@ -104,7 +115,7 @@ function afficherNbrFonction() {
     for (var i = 0; i < pseudosInputs.length; i++) {
         if (pseudosInputs[i].value.trim() === "") {
             tousRemplis = false;
-			listJoueur = [] // On réinitialise la liste des joueurs
+			listJoueur = []; // On réinitialise la liste des joueurs
             break; // Pas besoin de continuer la vérification si un champ est vide
         }
 		else {
@@ -164,7 +175,7 @@ function afficherModeJeu() {
     for (var i = 0; i < fonctionInputs.length; i++) {
         if (fonctionInputs[i].value.trim() === "") {
             tousRemplis = false;
-			listFonction = [] // On réinitialise la liste des fonctionnalitées
+			listFonction = []; // On réinitialise la liste des fonctionnalitées
             break; // Pas besoin de continuer la vérification si un champ est vide
         }
 		else {
@@ -194,7 +205,8 @@ function commencerJeu() {
     // Récupérer les pseudos depuis localStorage
 
     var pseudosString = localStorage.getItem('pseudos');
-    var fonctionString = localStorage.getItem('fonction')
+    var fonctionString = localStorage.getItem('fonction');
+    var regle = localStorage.getItem('regle');
 
     // Vérifier si des pseudos ont été stockés
     if (pseudosString) {
@@ -206,6 +218,7 @@ function commencerJeu() {
             listJoueur.push(pseudos[i]); // On enregistre les pseudos dans la liste pseudo
         }
         document.getElementById("nom_joueur").textContent = listJoueur[0];
+        document.getElementById("num_joueur").textContent = '1';
     } else {
         // Aucun pseudo n'a été stocké
         console.log('Aucun pseudo n\'a été stocké.');
@@ -233,21 +246,173 @@ function commencerJeu() {
 var cartes = document.querySelectorAll(".cartes");
 
 cartes.forEach(function (carte) {
-  carte.addEventListener("mouseenter", () => {
-    carte.classList.add("transition");
+    carte.addEventListener("mouseenter", () => {
+      carte.classList.add("transition");
+  
+      carte.addEventListener("mouseup", () => {
+        // Gestion des événements liés aux cartes : 
+        joueurActuel = parseInt(document.getElementById("num_joueur").textContent);
+        joueurActuel -= 1;
+        noteJoueur.push(carte.id);
+  
+        if (
+          (voteMin === undefined || parseInt(voteMin) > parseInt(noteJoueur[joueurActuel])) &&
+          (noteJoueur[joueurActuel] !== '???' && noteJoueur[joueurActuel] !== 'cafe')
+        ) {
+          alert(noteJoueur[joueurActuel]);
+          voteMin = noteJoueur[joueurActuel];
+          joueurMin = listJoueur[joueurActuel];
+        }
+  
+        if (
+          (voteMax === undefined || parseInt(voteMax) < parseInt(noteJoueur[joueurActuel])) &&
+          (noteJoueur[joueurActuel] !== '???' && noteJoueur[joueurActuel] !== 'cafe')
+        ) {
+          alert(noteJoueur[joueurActuel]);
+          voteMax = noteJoueur[joueurActuel];
+          joueurMax = listJoueur[joueurActuel];
+        }
+  
+        joueurActuel += 1;
+        if (joueurActuel < listJoueur.length) {
+          // Tant que le dernier joueur de la liste n'a pas voté, on passe au joueur suivant :
+          alert('joueur suivant');
+          document.getElementById("nom_joueur").textContent = listJoueur[joueurActuel];
+          document.getElementById("num_joueur").textContent = joueurActuel + 1;
+        } else if (voteMin === undefined) {
+          // Si la variable min n'est pas définie, cela signifie que tous les joueurs ont choisi le café ou l'interrogation :
+          if (noteJoueur[1] === 'cafe') {
+            // function fin de partie
+            alert('fin de la partie !');
+          } else {
+            alert('Tout le monde doit revoter !');
+            noteJoueur = [];
+            document.getElementById("num_joueur").textContent = '1';
+            document.getElementById("nom_joueur").textContent = listJoueur[0];
+          }
+        } else if (voteMin == voteMax) {
+          alert("C pas normal");
+          tourFonction();
+        } else if (tourVote === 1) {
+          // Si c'est le premier tour de vote, il y a débat
+          debat(joueurMin, voteMin, joueurMax, voteMax);
+        } else if (regle === 'unanimité') {
+          // Si ce n'est pas le premier tour de vote, on applique des traitements spécifiques aux règles choisies.
+          debat(joueurMin, voteMin, joueurMax, voteMax);
+        } else if (regle === 'moyenne') {
+          var som = 0;
+          var div = 0;
+          for (i = 0; i < noteJoueur.length; i++) {
+            if (noteJoueur[i] !== 'cafe' && noteJoueur[i] !== '???') {
+              som += noteJoueur[i];
+              div += 1;
+            }
+          }
+          som /= div;
+          som = Math.ceil(som); // On arrondi le nombre vers le haut
+          while (![1, 2, 3, 5, 8, 13, 20, 40, 100].includes(som)) {
+            som += 1;
+          }
+          noteFonction.push(som);
+          tourFonction();
+        } else if (regle === 'majoritéRelative') {
+          // function majRelative()
+        }
+      });
+      // Fin de la fonction d'écoute du click sur les cartes.
+    });
 
-    carte.addEventListener("click", ()=>{
-    alert("Carte Sélectionné !")
-    })
-  });
+
 //   ANNULER L'EFFET DE L'ANIMATION QUAND ON SORS DE LA CARTE
   carte.addEventListener("mouseleave", () => {
     carte.classList.remove("transition");
   });
 });
 
-//ACTUALISER LES FONCTIONNALTES QUAND ON CLIQUE SUR SUIVANT
 
+// Fonction qui affiche la fenêtre de débat :
+function debat(joueurMin, voteMin, joueurMax, voteMax){
+    noteJoueur = []; // on réinitialise la liste des avis des joueurs car ils vont devoir à nouveau voter
+    document.getElementById("num_joueur").textContent = '1';
+    document.getElementById("nom_joueur").textContent = listJoueur[0];
+    // On masque les cartes :
+    var hideCartes = document.getElementById("deck");
+    hideCartes.style.visibility = "hidden";
+    hideCartes.classList.remove("show");
+    hideCartes.style.opacity = "0";
+
+    // On cache le nom du joueur qui doit choisir sa carte
+    var hideSidebar = document.getElementById("sidebar");
+    hideSidebar.style.visibility = "hidden";
+    hideSidebar.classList.remove("show");
+    hideSidebar.style.opacity = "0";
+
+    // On affiche la zone de débat 
+    var showDebat = document.getElementById("debat1");
+    showDebat.style.visibility = "visible";
+    showDebat.classList.add("show");
+    showDebat.style.opacity="1";
+    alert(joueurMin);
+    document.getElementById("min_joueur").textContent = joueurMin;
+    document.getElementById("min_vote").textContent = voteMin;
+    document.getElementById("max_joueur").textContent = joueurMax;
+    document.getElementById("max_vote").textContent = voteMax;
+
+}
+
+function validAvis1(){
+    var avis = document.getElementById('zone_debat1').value;
+    document.getElementById('avis1') = 'Avis 1 : ' + avis;
+    var hideDebat = document.getElementById("debat1");
+    hideDebat.style.visibility = "hidden";
+    hideDebat.classList.remove("show");
+    hideDebat.style.opacity = "0";
+
+    var showDebat = document.getElementById("debat2");
+    showDebat.style.visibility = "visible";
+    showDebat.classList.add("show");
+    showDebat.style.opacity="1";
+}
+
+function validAvis2(){
+    var avis = document.getElementById('zone_debat2').value;
+    document.getElementById('avis2') = 'Avis 2 : ' + avis;
+    var hideDebat = document.getElementById("debat2");
+    hideDebat.style.visibility = "hidden";
+    hideDebat.classList.remove("show");
+    hideDebat.style.opacity = "0";
+
+    var showCartes = document.getElementById("deck");
+    showCartes.style.visibility = "visible";
+    showCartes.classList.add("show");
+    showCartes.style.opacity="1";
+
+    var showSidebar = document.getElementById("sidebar");
+    showCartes.style.visibility = "visible";
+    showCartes.classList.add("show");
+    showCartes.style.opacity="1";
+}
+
+
+// Fonction qui s'occupe de la gestion des fonctionnalités débattues
+function tourFonction() {
+    document.getElementById('avis1').textContent = '';
+    document.getElementById('avis2').textContent = '';
+    fonctionActuelle = parseInt(document.getElementById("num_fonction").textContent); // Fonctionnalité actuellement débattu 
+    fonctionActuelle -= 1;
+    alert(listFonction.length + 'pas bon');
+    if (fonctionActuelle < listFonction.length) { // Tant que le dernier joueur de la liste n'a pas voté, on passe au joueur suivant :
+        fonctionActuelle += 1;
+        document.getElementById("nom_fonction").textContent = listFonction[fonctionActuelle];
+        document.getElementById("num_fonction").textContent = parseInt(fonctionActuelle) + 1;
+    } else {
+        // function fin de partie
+        alert('fin de la partie !')
+    }
+}
+
+//ACTUALISER LES FONCTIONNALTES QUAND ON CLIQUE SUR SUIVANT
+/*
 var indexFonction = 0; // Variable pour suivre l'index actuel de la fonctionnalité
 var fonctionnaliteSuivante = document.getElementById("suivant");
 
@@ -263,5 +428,6 @@ fonctionnaliteSuivante.addEventListener("click", () => {
         alert("FIN DE LA PARTIE !")
     }
 });
+*/
 
 
