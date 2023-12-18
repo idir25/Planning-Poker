@@ -331,6 +331,7 @@ cartes.forEach(function (carte) {
 
 
 // Fonction qui affiche la fenêtre de débat :
+
 function debat(joueurMin, voteMin, joueurMax, voteMax){
     noteJoueur = []; // on réinitialise la liste des avis des joueurs car ils vont devoir à nouveau voter
     document.getElementById("num_joueur").textContent = '1';
@@ -360,9 +361,21 @@ function debat(joueurMin, voteMin, joueurMax, voteMax){
 
 }
 
-function validAvis1(){
-    var avis = document.getElementById('zone_debat1').value;
-    document.getElementById('avis1') = 'Avis 1 : ' + avis;
+function validAvis1() {
+    var avis = document.querySelector('#debat1 textarea').value;
+
+    var jsonData = { avis1: 'Avis 1 : ' + avis };
+
+    try {
+        // Tentative de stockage dans le Local Storage
+        localStorage.setItem('avisData', JSON.stringify(jsonData));
+        alert('Données enregistrées avec succès dans le Local Storage!');
+    } catch (error) {
+        // Gestion des erreurs
+        console.error('Erreur lors de l\'enregistrement dans le Local Storage:', error);
+        alert('Erreur lors de l\'enregistrement dans le Local Storage. Veuillez consulter la console pour plus d\'informations.');
+    }
+
     var hideDebat = document.getElementById("debat1");
     hideDebat.style.visibility = "hidden";
     hideDebat.classList.remove("show");
@@ -371,12 +384,25 @@ function validAvis1(){
     var showDebat = document.getElementById("debat2");
     showDebat.style.visibility = "visible";
     showDebat.classList.add("show");
-    showDebat.style.opacity="1";
+    showDebat.style.opacity = "1";
 }
 
+
+
 function validAvis2(){
-    var avis = document.getElementById('zone_debat2').value;
-    document.getElementById('avis2') = 'Avis 2 : ' + avis;
+    var avis2 = document.querySelector('#debat1 textarea').value;
+    var jsonData = { validAvis2: 'Avis 2 : ' + avis2 };
+
+    try {
+        // Tentative de stockage dans le Local Storage
+        localStorage.setItem('avisData', JSON.stringify(jsonData));
+        alert('Données enregistrées avec succès dans le Local Storage!');
+    } catch (error) {
+        // Gestion des erreurs
+        console.error('Erreur lors de l\'enregistrement dans le Local Storage:', error);
+        alert('Erreur lors de l\'enregistrement dans le Local Storage. Veuillez consulter la console pour plus d\'informations.');
+    }
+
     var hideDebat = document.getElementById("debat2");
     hideDebat.style.visibility = "hidden";
     hideDebat.classList.remove("show");
@@ -388,9 +414,9 @@ function validAvis2(){
     showCartes.style.opacity="1";
 
     var showSidebar = document.getElementById("sidebar");
-    showCartes.style.visibility = "visible";
-    showCartes.classList.add("show");
-    showCartes.style.opacity="1";
+    showSidebar.style.visibility = "visible";
+    showSidebar.classList.add("show");
+    showSidebar.style.opacity="1";
 }
 
 
