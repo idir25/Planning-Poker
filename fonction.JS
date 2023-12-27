@@ -1,30 +1,23 @@
-const audio = new Audio("select.mp3");
-
-const son = ()=>{
-const audio = new Audio();
-audio.src = "./enter.mp3"
-audio.play();
-};
-
-
 // On vérifie si la page est "initilisation.html" :
 if (window.location.href.indexOf("initiallisation.html") > -1) {
-    document.getElementById("suivant1").addEventListener("click", afficherPseudos);
+	document.getElementById("suivant1").addEventListener("click", afficherPseudos);
 	document.getElementById("suivant2").addEventListener("click", afficherNbrFonction);
     document.getElementById("suivant3").addEventListener("click", afficherFonction);
     document.getElementById("suivant4").addEventListener("click", afficherModeJeu);
 	document.getElementById("commencerJeu").addEventListener("click", pagePartie);
-        
-    /////////////AFFICHER LE NOMBRE DE PSEUDOS ET DE FONCTIONNALITES//////// 
+    
 
-    // Récupérer l'élément du formulaire pour le nombre de pseudos
-    var slide = document.getElementById("nbrJoueurs");
     
-    // Récupérer l'élément où afficher la valeur du nombre de pseudos
-    var out = document.getElementById("value");
-    
-    // Utiliser une fonction fléchée pour définir l'action lors de l'input
-    slide.addEventListener("input", () => out.textContent = slide.value);
+/////////////AFFICHER LE NOMBRE DE PSEUDOS ET DE FONCTIONNALITES//////// 
+
+// Récupérer l'élément du formulaire pour le nombre de pseudos
+var slide = document.getElementById("nbrJoueurs");
+
+// Récupérer l'élément où afficher la valeur du nombre de pseudos
+var out = document.getElementById("value");
+
+// Utiliser une fonction fléchée pour définir l'action lors de l'input
+slide.addEventListener("input", () => out.textContent = slide.value);
 
 // Appeler la fonction initiale pour afficher la valeur initiale
 out.textContent = slide.value;
@@ -40,36 +33,24 @@ out1.textContent = slide1.value;
 
 // On vérifie si la page est "partie.html" :
 if (window.location.href.indexOf("partie.html") > -1) {
-    window.addEventListener("load", commencerJeu);
+	window.addEventListener("load", commencerJeu);
     document.getElementById("validerAvis1").addEventListener("click", validAvis1);
     document.getElementById("validerAvis2").addEventListener("click", validAvis2);
 }
 
-if (window.location.href.indexOf("acceuil2.html") > -1) {
-    document.querySelector(".btn1").addEventListener("click", ()=>{
-        son();
-    });
-
-}
-
 // Fonctions pour relier les pages html entre elles
 function pageAcceuil2() {
-    window.location.href = 'acceuil2.html'
+    window.location.href = 'acceuil2.html';
 }
 function pagePartie() {
-    son();
     var modeJeu = document.getElementById('modeJeu').textContent;
     localStorage.setItem('regle', JSON.stringify(modeJeu));
     localStorage.setItem('pseudos', JSON.stringify(listJoueur));
     window.location.href = 'partie.html';
-    
 }
 function redirectToAcceuil2() {
     window.location.href = 'C:/Users/yidir/Desktop/dd/acceuil2.html';
-    
 }
-
-
 
 
 
@@ -77,7 +58,7 @@ function redirectToAcceuil2() {
 
 //// ATTENTION : IL Y A PLUSIEURS VARIABLES GLOBALES //////
 // On créer la liste des joueurs si elle n'existe pas
-var voteMin, voteMax, joueurMin, joueurMax;
+
 if (listJoueur == undefined) {
 	var listJoueur = [];
 }
@@ -101,7 +82,6 @@ var showNbrFonction = document.getElementById("choixNbrFonction");
 
 
 function afficherPseudos() {
-    son();
     var nbrJoueurs = document.getElementById("nbrJoueurs").value;
     var champsPseudos = document.getElementById("champsPseudos");
     
@@ -129,9 +109,7 @@ function afficherPseudos() {
 }
 
 // Affichage de l'option de sélection du nombre de fonctionnalitées :
-
 function afficherNbrFonction() {
-    son();
     var pseudosInputs = document.querySelectorAll('input[name="pseudos[]"]');
     var tousRemplis = true;
     for (var i = 0; i < pseudosInputs.length; i++) {
@@ -162,7 +140,6 @@ function afficherNbrFonction() {
 
 // Affichage de l'option de saisie des noms des fonctionnalitées : 
 function afficherFonction() {
-    son();
     var nbrFonction = document.getElementById("nbrFonction").value;
     var champsFonction = document.getElementById("champsFonction");
     
@@ -191,7 +168,6 @@ function afficherFonction() {
 
 // Fonction pour afficher la section du mode de jeu
 function afficherModeJeu() {
-    son();
     // Vérifie que tous les champs de pseudos sont remplis
     var fonctionInputs = document.querySelectorAll('input[name="fonction[]"]');
     var tousRemplis = true;
@@ -199,220 +175,196 @@ function afficherModeJeu() {
     for (var i = 0; i < fonctionInputs.length; i++) {
         if (fonctionInputs[i].value.trim() === "") {
             tousRemplis = false;
-			listFonction = []; // On réinitialise la liste des fonctionnalités
+			listFonction = []; // On réinitialise la liste des fonctionnalitées
             break; // Pas besoin de continuer la vérification si un champ est vide
-        } else {
-            listFonction.push(fonctionInputs[i].value.trim()); // On ajoute les fonctionnalités à la liste des fonctionnalités
         }
+		else {
+			listFonction.push(fonctionInputs[i].value.trim()) // On ajoute les fonctionnalitées à la liste des fonctionnalitées
+		}
+    }
+    
+        if (tousRemplis) {
+            // Stockage des pseudos dans localStorage
+            localStorage.setItem('fonction', JSON.stringify(listFonction));
+
+            //afficher le menu mode de jeu
+            showMode.style.visibility = "visible";
+            showMode.classList.add("show");
+            showMode.style.opacity="1";
+            alert(listFonction[1])
+        
+        } else {
+            alert("Veuillez remplir tous les champs de fonctionnalitées.");
+        }
+        
     }
 
-    if (tousRemplis) {
-        var modeJeu = document.getElementById('modeJeu').value;
-        localStorage.setItem('modeJeu', modeJeu);
-        // Stockage des pseudos dans localStorage
-        localStorage.setItem('fonction', JSON.stringify(listFonction));
-
-        // Afficher le menu mode de jeu
-        showMode.style.visibility = "visible";
-        showMode.classList.add("show");
-        showMode.style.opacity = "1";
-    } else {
-        alert("Veuillez remplir tous les champs de fonctionnalités.");
-    }
-}
+/////////////////////////////////// Page Partie.html /////////////////////////////////////////////////
+// Variables globales utilisées sur la page "partie.html" : 
+var voteMin, voteMax, joueurMin, joueurMax, regle;
+var cartes = document.querySelectorAll(".cartes");
 
 
+function commencerJeu() {
+    // Récupérer les pseudos depuis localStorage
 
-
-
-    /////////////////////////////////// Page Partie.html /////////////////////////////////////////////////
-
-
-    
-
-
-
-
-
-    
-
-
-    function commencerJeu() {
-    var cartes = document.querySelectorAll(".cartes");
-
-    // ANIMATION DES CARTES
-    cartes.forEach(function (carte) {
-      carte.addEventListener("mouseenter", () => {
-          carte.classList.add("transition");
-          
-          carte.addEventListener("click", ()=>{
-            audio.play();
-            })
-      });
-      //   ANNULER L'EFFET DE L'ANIMATION QUAND ON SORS DE LA CARTE
-      carte.addEventListener("mouseleave", () => {
-        carte.classList.remove("transition");
-      });
-    });
-
-    
-    // Vérifier si un mode de jeu a été stocké
     var pseudosString = localStorage.getItem('pseudos');
     var fonctionString = localStorage.getItem('fonction');
-    var regle = localStorage.getItem('regle');
-    var modeJeu = localStorage.getItem('modeJeu');
-    
-    
-    // Convertir la chaîne JSON en tableau (PSEUDOS)
-    var pseudos = JSON.parse(pseudosString);
-    // Faire quelque chose avec les pseudos (par exemple, les afficher)
-    for (var i = 0; i < pseudos.length; i++) {
-        listJoueur.push(pseudos[i]); // On enregistre les pseudos dans la liste pseudo
+    regle = localStorage.getItem('regle');
+
+    // Vérifier si des pseudos ont été stockés
+    if (pseudosString) {
+        // Convertir la chaîne JSON en tableau
+        var pseudos = JSON.parse(pseudosString);
+
+        // On enregistre les pseudos dans la liste pseudo
+        for (var i = 0; i < pseudos.length; i++) {
+            listJoueur.push(pseudos[i]);
+        }
+        document.getElementById("nom_joueur").textContent = listJoueur[0];
+        document.getElementById("num_joueur").textContent = '1';
+    } else {
+        // Aucun pseudo n'a été stocké
+        console.log('Aucun pseudo n\'a été stocké.');
     }
-    document.getElementById("nom_joueur").textContent = listJoueur[0];
-    document.getElementById("num_joueur").textContent = '1';
-    
-    
-    // Convertir la chaîne JSON en tableau (FONCTIONNALITES)
-    var fonction = JSON.parse(fonctionString);
-    for (var i = 0; i < fonction.length; i++) {
-        listFonction.push(fonction[i]); // On enregistre les fonctionnalitées dans la liste des fonctionnalitées
+
+    // Vérifier si les fonctionnalités ont été stockés
+    if (fonctionString) {
+        // Convertir la chaîne JSON en tableau
+        var fonction = JSON.parse(fonctionString);
+
+        for (var i = 0; i < fonction.length; i++) {
+            listFonction.push(fonction[i]); // On enregistre les fonctionnalitées dans la liste des fonctionnalités
+        }
+        document.getElementById("nom_fonction").textContent = listFonction[0];
+        document.getElementById("num_fonction").textContent = '1';
+    } else {
+        // Aucun pseudo n'a été stocké
+        console.log('Aucune fonctionnalitée n\'a été stocké.');
     }
-    document.getElementById("nom_fonction").textContent = listFonction[0];
-    document.getElementById("num_fonction").textContent = '1';
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    function gestionModeJeu() {
-        
-        if (modeJeu) {
-            // Afficher le mode de jeu sélectionné
-            alert('Mode de jeu sélectionné : ' + modeJeu);
+
+}
+
+
+// ANIMATION DES CARTES
+
+
+function handleMouseUp(carte) {
+
+    // On identifie le joueur qui a voté : 
+    joueurActuel = parseInt(document.getElementById("num_joueur").textContent);
+    joueurActuel -= 1;
+    noteJoueur.push(carte.id);
+
+    if (
+        (voteMin === undefined || parseInt(voteMin) > parseInt(noteJoueur[joueurActuel])) &&
+        ((noteJoueur[joueurActuel] !== '???') && (noteJoueur[joueurActuel] !== 'cafe'))
+    ) {
+        alert(noteJoueur[joueurActuel]);
+        voteMin = noteJoueur[joueurActuel];
+        joueurMin = listJoueur[joueurActuel];
+    }
+
+    if (
+        (voteMax === undefined || parseInt(voteMax) < parseInt(noteJoueur[joueurActuel])) &&
+        ((noteJoueur[joueurActuel] !== '???') && (noteJoueur[joueurActuel] !== 'cafe'))
+    ) {
+        alert(noteJoueur[joueurActuel]);
+        voteMax = noteJoueur[joueurActuel];
+        joueurMax = listJoueur[joueurActuel];
+    }
+    joueurActuel += 1;
+
+    if (joueurActuel < listJoueur.length) {
+        // Tant que le dernier joueur de la liste n'a pas voté, on passe au joueur suivant :
+        // alert('joueur suivant');
+
+        document.getElementById("nom_joueur").textContent = listJoueur[joueurActuel];
+        document.getElementById("num_joueur").textContent = joueurActuel + 1;
+        return;
+    } else if (voteMin === undefined) {
+
+        // Si la variable min n'est pas définie, cela signifie que tous les joueurs ont choisi le café ou l'interrogation :
+        // Ajouter une fonction qui vérifie si toutes les cartes sont bien des cartes café
+        if (noteJoueur.every(element => element === 'cafe')) {
+            // function fin de partie
+            alert('fin de la partie !');
+            return;
         } else {
-            // Aucun mode de jeu n'a été stocké
-            console.log('Aucun mode de jeu n\'a été stocké.');
+            // Tous ou certains joueurs ont choisi la carte '???' :
+            alert('Tout le monde doit revoter !');
+            noteJoueur = [];
+            document.getElementById("num_joueur").textContent = '1';
+            document.getElementById("nom_joueur").textContent = listJoueur[0];
+            return;
         }
-        
-        // Gérer le mode de jeu spécifique
-        if (modeJeu == 'unanimité') {
-            gererUnanimite();
-        } else if (modeJeu == 'moyenne') {
-            gererMoyenne();
+    } else if (voteMin == voteMax) {
+        noteFonction.push(noteJoueur[0]);
+        tourFonction();
+        return;
+    } else if (tourVote === 1) {
+        // Si c'est le premier tour de vote, il y a débat
+        debat(joueurMin, voteMin, joueurMax, voteMax);
+        return;
+    } else if (regle === 'unanimité') {
+        // Si ce n'est pas le premier tour de vote, on applique des traitements spécifiques aux règles choisies.
+        debat(joueurMin, voteMin, joueurMax, voteMax);
+        return;
+    } else if (regle === 'moyenne') {
+        var som = 0;
+        var div = 0;
+        for (i = 0; i < noteJoueur.length; i++) {
+            if (noteJoueur[i] !== 'cafe' && noteJoueur[i] !== '???') {
+                som += noteJoueur[i];
+                div += 1;
+            }
         }
+        som /= div;
+        som = Math.ceil(som); // On arrondi le nombre vers le haut
+        while (![1, 2, 3, 5, 8, 13, 20, 40, 100].includes(som)) {
+            som += 1;
+        }
+        noteFonction.push(som);
+        tourFonction();
+        return;
+    } else if (regle === 'majoritéRelative') {
+        // function majRelative()
     }
-    
-    // Fonction pour gérer le mode de jeu "Moyenne"
-    function gererMoyenne() {
-        var indexJoueurs = 0;
-        var cartesChoisies = [];
-        var valeursAutorisees = [0, 1, 2, 3, 5, 8, 13, 20, 40, 100];
-    
-        function updateInterface() {
-            document.getElementById("nom_joueur").textContent = listJoueur[indexJoueurs];
-            document.getElementById("num_joueur").textContent = (indexJoueurs + 1).toString();
-        }
-    
-        cartes.forEach(function (carte) {
-            carte.addEventListener("click", () => {
-                var valeurCarte = parseInt(carte.id);
-    
-                if (valeursAutorisees.includes(valeurCarte)) {
-                    cartesChoisies.push(valeurCarte);
-                } else {
-                    alert("Veuillez choisir une carte avec une valeur autorisée.");
-                    return;
-                }
-                indexJoueurs++;
-                if (indexJoueurs < listJoueur.length) {
-                    updateInterface();
-                } else {
-                    if (cartesChoisies.length > 0) {
-                        valeursAutorisees.sort((a, b) => a - b);
-                        var carteMoyenne = Math.round(cartesChoisies.reduce((a, b) => a + b) / cartesChoisies.length);
-                        var carteLaPlusProche = valeursAutorisees.reduce((prev, curr) =>
-                            Math.abs(curr - carteMoyenne) < Math.abs(prev - carteMoyenne) ? curr : prev
-                        );
-                        alert('La carte moyenne choisie est : ' + carteLaPlusProche);
-                        window.location.reload();
-
-                    } else {
-                        alert("Aucune carte choisie. Veuillez choisir une carte avec une valeur autorisée.");
-                    }
-                }
-            });
-        });
-    }
-    
-    // Fonction pour gérer le mode de jeu "Unanimité"
-    function gererUnanimite() {
-        var indexJoueurs = 0;
-        var cartesChoisies = {};
-    
-        function updateInterface() {
-            document.getElementById("nom_joueur").textContent = listJoueur[indexJoueurs];
-            document.getElementById("num_joueur").textContent = (indexJoueurs + 1).toString();
-        }
-    
-        cartes.forEach(function (carte) {
-            carte.addEventListener("click", () => {
-                var joueurActuel = listJoueur[indexJoueurs];
-                cartesChoisies[joueurActuel] = carte.id;
-                
-                indexJoueurs++;
-                if (indexJoueurs < listJoueur.length) {
-                    updateInterface();
-                } else {
-                    var cartesUniques = new Set(Object.values(cartesChoisies));
-                    if (cartesUniques.size === 1) {
-                        alert('Unanimité sur la carte ' + Array.from(cartesUniques)[0]);
-                    } else {
-                        alert("Certains joueurs ne sont pas d'accord sur le choix de la carte.");
-                        alert("LA PARTIE EST RELANCE");
-                        window.location.reload();
-                    }
-                }
-            });
-        });
-    }
-    // Appel de la fonction principale
-    
-
-    // Déclarer en dehors de la fonction pour la rendre accessible à fonctionnalite
-    
-    gestionModeJeu();
-    
+    alert('fin intermédiaire');
+    // Réinitialiser le drapeau après le traitement
 }
-var indexFonction = 0; // Variable pour suivre l'index actuel de la fonctionnalité
-var fonctionnaliteSuivante = document.getElementById("suivant");
 
-fonctionnaliteSuivante.addEventListener("click", () => {
-indexFonction++; 
-if (indexFonction < listFonction.length) {
-    document.getElementById("nom_fonction").textContent = listFonction[indexFonction];
-    document.getElementById("num_fonction").textContent = (indexFonction + 1).toString();
-
-
-} else {
-    // Si nous atteignons la fin de la liste, on peux choisir de réinitialiser à zéro ou effectuer d'autres actions.
-    console.log('Fin des fonctionnalités.');
-    alert("FIN DE LA PARTIE !")
+function handleMouseEnter(carte) {
+    carte.classList.add("transition");
 }
+
+function handleMouseLeave(carte) {
+    carte.classList.remove("transition");
+}
+
+function handleClick(carte) {
+    alert('click sur la carte');
+    handleMouseUp(carte);
+}
+
+cartes.forEach(function (carte) {
+    carte.addEventListener("mouseenter", function () {
+        handleMouseEnter(carte);
+    });
+
+    carte.addEventListener("mouseleave", function () {
+        handleMouseLeave(carte);
+    });
+
+    carte.addEventListener("mouseup", function () {
+        handleClick(carte);
+    });
 });
 
 
 // Fonction qui affiche la fenêtre de débat :
-function debat(listJoueur, joueurMax, voteMax){
+
+function debat(joueurMin, voteMin, joueurMax, voteMax){
     noteJoueur = []; // on réinitialise la liste des avis des joueurs car ils vont devoir à nouveau voter
     document.getElementById("num_joueur").textContent = '1';
     document.getElementById("nom_joueur").textContent = listJoueur[0];
@@ -421,19 +373,18 @@ function debat(listJoueur, joueurMax, voteMax){
     hideCartes.style.visibility = "hidden";
     hideCartes.classList.remove("show");
     hideCartes.style.opacity = "0";
-    
+
     // On cache le nom du joueur qui doit choisir sa carte
     var hideSidebar = document.getElementById("sidebar");
     hideSidebar.style.visibility = "hidden";
     hideSidebar.classList.remove("show");
     hideSidebar.style.opacity = "0";
-    
+
     // On affiche la zone de débat 
     var showDebat = document.getElementById("debat1");
     showDebat.style.visibility = "visible";
     showDebat.classList.add("show");
     showDebat.style.opacity="1";
-    alert(joueurMin);
     document.getElementById("min_joueur").textContent = joueurMin;
     document.getElementById("min_vote").textContent = voteMin;
     document.getElementById("max_joueur").textContent = joueurMax;
@@ -443,6 +394,7 @@ function debat(listJoueur, joueurMax, voteMax){
 
 function validAvis1() {
     var avis = document.querySelector('#debat1 textarea').value;
+
     var jsonData = { avis1: 'Avis 1 : ' + avis };
 
     try {
@@ -496,6 +448,10 @@ function validAvis2(){
     showSidebar.style.visibility = "visible";
     showSidebar.classList.add("show");
     showSidebar.style.opacity="1";
+    voteMin = undefined;
+    voteMax = undefined;
+    joueurMin = undefined;
+    joueurMax = undefined;
 }
 
 
@@ -505,11 +461,14 @@ function tourFonction() {
     document.getElementById('avis2').textContent = '';
     fonctionActuelle = parseInt(document.getElementById("num_fonction").textContent); // Fonctionnalité actuellement débattu 
     fonctionActuelle -= 1;
-    alert(listFonction.length + 'pas bon');
-    if (fonctionActuelle < listFonction.length) { // Tant que le dernier joueur de la liste n'a pas voté, on passe au joueur suivant :
+    
+    if (fonctionActuelle < listFonction.length) { // Tant que toutes les fonctionnalités n'ont pas été votées, on passe à la suivante :
         fonctionActuelle += 1;
         document.getElementById("nom_fonction").textContent = listFonction[fonctionActuelle];
         document.getElementById("num_fonction").textContent = parseInt(fonctionActuelle) + 1;
+        document.getElementById("nom_joueur").textContent = listJoueur[0];
+        document.getElementById("num_joueur").textContent = '1';
+        noteJoueur = [];
     } else {
         // function fin de partie
         alert('fin de la partie !')
@@ -517,96 +476,22 @@ function tourFonction() {
 }
 
 //ACTUALISER LES FONCTIONNALTES QUAND ON CLIQUE SUR SUIVANT
+/*
+var indexFonction = 0; // Variable pour suivre l'index actuel de la fonctionnalité
+var fonctionnaliteSuivante = document.getElementById("suivant");
 
+fonctionnaliteSuivante.addEventListener("click", () => {
+    indexFonction++;
 
-
-
-// ANIMATION DES CARTES
-
-// var cartes = document.querySelectorAll(".cartes");
-
-// cartes.forEach(function (carte) {
-//     carte.addEventListener("mouseenter", () => {
-//       carte.classList.add("transition");
-  
-//       carte.addEventListener("mouseup", () => {
-//         // Gestion des événements liés aux cartes : 
-//         joueurActuel = parseInt(document.getElementById("num_joueur").textContent);
-//         joueurActuel -= 1;
-//         noteJoueur.push(carte.id);
-  
-//         if (
-//           (voteMin === undefined || parseInt(voteMin) > parseInt(noteJoueur[joueurActuel])) &&
-//           (noteJoueur[joueurActuel] !== '???' && noteJoueur[joueurActuel] !== 'cafe')
-//         ) {
-//           alert(noteJoueur[joueurActuel]);
-//           voteMin = noteJoueur[joueurActuel];
-//           joueurMin = listJoueur[joueurActuel];
-//         }
-  
-//         if (
-//           (voteMax === undefined || parseInt(voteMax) < parseInt(noteJoueur[joueurActuel])) &&
-//           (noteJoueur[joueurActuel] !== '???' && noteJoueur[joueurActuel] !== 'cafe')
-//         ) {
-//           alert(noteJoueur[joueurActuel]);
-//           voteMax = noteJoueur[joueurActuel];
-//           joueurMax = listJoueur[joueurActuel];
-//         }
-  
-//         joueurActuel += 1;
-//         if (joueurActuel < listJoueur.length) {
-//           // Tant que le dernier joueur de la liste n'a pas voté, on passe au joueur suivant :
-//           alert('joueur suivant');
-//           document.getElementById("nom_joueur").textContent = listJoueur[joueurActuel];
-//           document.getElementById("num_joueur").textContent = joueurActuel + 1;
-//         } else if (voteMin === undefined) {
-//           // Si la variable min n'est pas définie, cela signifie que tous les joueurs ont choisi le café ou l'interrogation :
-//           if (noteJoueur[1] === 'cafe') {
-//             // function fin de partie
-//             alert('fin de la partie !');
-//           } else {
-//             alert('Tout le monde doit revoter !');
-//             noteJoueur = [];
-//             document.getElementById("num_joueur").textContent = '1';
-//             document.getElementById("nom_joueur").textContent = listJoueur[0];
-//           }
-//         } else if (voteMin == voteMax) {
-//           alert("C pas normal");
-//           tourFonction();
-//         } else if (tourVote === 1) {
-//           // Si c'est le premier tour de vote, il y a débat
-//           debat(joueurMin, voteMin, joueurMax, voteMax);
-//         } else if (regle === 'unanimité') {
-//           // Si ce n'est pas le premier tour de vote, on applique des traitements spécifiques aux règles choisies.
-//           debat(joueurMin, voteMin, joueurMax, voteMax);
-//         } else if (regle === 'moyenne') {
-//           var som = 0;
-//           var div = 0;
-//           for (i = 0; i < noteJoueur.length; i++) {
-//             if (noteJoueur[i] !== 'cafe' && noteJoueur[i] !== '???') {
-//               som += noteJoueur[i];
-//               div += 1;
-//             }
-//           }
-//           som /= div;
-//           som = Math.ceil(som); // On arrondi le nombre vers le haut
-//           while (![1, 2, 3, 5, 8, 13, 20, 40, 100].includes(som)) {
-//             som += 1;
-//           }
-//           noteFonction.push(som);
-//           tourFonction();
-//         } else if (regle === 'majoritéRelative') {
-//           // function majRelative()
-//         }
-//       });
-//       // Fin de la fonction d'écoute du click sur les cartes.
-//     });
-
-
-// //   ANNULER L'EFFET DE L'ANIMATION QUAND ON SORS DE LA CARTE
-//   carte.addEventListener("mouseleave", () => {
-//     carte.classList.remove("transition");
-//   });
-// });
+    if (indexFonction < listFonction.length) {
+        document.getElementById("nom_fonction").textContent = listFonction[indexFonction];
+        document.getElementById("num_fonction").textContent = (indexFonction + 1).toString();
+    } else {
+        // Si nous atteignons la fin de la liste, on peux choisir de réinitialiser à zéro ou effectuer d'autres actions.
+        console.log('Fin des fonctionnalités.');
+        alert("FIN DE LA PARTIE !")
+    }
+});
+*/
 
 
