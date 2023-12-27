@@ -1,3 +1,10 @@
+const audio = new Audio("select.mp3");
+
+const son = () => {
+  const audio = new Audio();
+  audio.src = "./enter.mp3";
+  audio.play();
+};
 // On vérifie si la page est "initilisation.html" :
 if (window.location.href.indexOf("initiallisation.html") > -1) {
 	document.getElementById("suivant1").addEventListener("click", afficherPseudos);
@@ -82,6 +89,7 @@ var showNbrFonction = document.getElementById("choixNbrFonction");
 
 
 function afficherPseudos() {
+    son();
     var nbrJoueurs = document.getElementById("nbrJoueurs").value;
     var champsPseudos = document.getElementById("champsPseudos");
     
@@ -110,6 +118,7 @@ function afficherPseudos() {
 
 // Affichage de l'option de sélection du nombre de fonctionnalitées :
 function afficherNbrFonction() {
+    son();
     var pseudosInputs = document.querySelectorAll('input[name="pseudos[]"]');
     var tousRemplis = true;
     for (var i = 0; i < pseudosInputs.length; i++) {
@@ -140,6 +149,7 @@ function afficherNbrFonction() {
 
 // Affichage de l'option de saisie des noms des fonctionnalitées : 
 function afficherFonction() {
+    son();
     var nbrFonction = document.getElementById("nbrFonction").value;
     var champsFonction = document.getElementById("champsFonction");
     
@@ -168,6 +178,7 @@ function afficherFonction() {
 
 // Fonction pour afficher la section du mode de jeu
 function afficherModeJeu() {
+    son();
     // Vérifie que tous les champs de pseudos sont remplis
     var fonctionInputs = document.querySelectorAll('input[name="fonction[]"]');
     var tousRemplis = true;
@@ -191,7 +202,7 @@ function afficherModeJeu() {
             showMode.style.visibility = "visible";
             showMode.classList.add("show");
             showMode.style.opacity="1";
-            alert(listFonction[1])
+            
         
         } else {
             alert("Veuillez remplir tous les champs de fonctionnalitées.");
@@ -201,13 +212,14 @@ function afficherModeJeu() {
 
 /////////////////////////////////// Page Partie.html /////////////////////////////////////////////////
 // Variables globales utilisées sur la page "partie.html" : 
+
 var voteMin, voteMax, joueurMin, joueurMax, regle;
 var cartes = document.querySelectorAll(".cartes");
 
 
 function commencerJeu() {
+    son();
     // Récupérer les pseudos depuis localStorage
-
     var pseudosString = localStorage.getItem('pseudos');
     var fonctionString = localStorage.getItem('fonction');
     regle = localStorage.getItem('regle');
@@ -260,7 +272,7 @@ function handleMouseUp(carte) {
         (voteMin === undefined || parseInt(voteMin) > parseInt(noteJoueur[joueurActuel])) &&
         ((noteJoueur[joueurActuel] !== '???') && (noteJoueur[joueurActuel] !== 'cafe'))
     ) {
-        alert(noteJoueur[joueurActuel]);
+        
         voteMin = noteJoueur[joueurActuel];
         joueurMin = listJoueur[joueurActuel];
     }
@@ -269,7 +281,7 @@ function handleMouseUp(carte) {
         (voteMax === undefined || parseInt(voteMax) < parseInt(noteJoueur[joueurActuel])) &&
         ((noteJoueur[joueurActuel] !== '???') && (noteJoueur[joueurActuel] !== 'cafe'))
     ) {
-        alert(noteJoueur[joueurActuel]);
+        
         voteMax = noteJoueur[joueurActuel];
         joueurMax = listJoueur[joueurActuel];
     }
@@ -343,7 +355,7 @@ function handleMouseLeave(carte) {
 }
 
 function handleClick(carte) {
-    alert('click sur la carte');
+    audio.play();
     handleMouseUp(carte);
 }
 
@@ -472,6 +484,7 @@ function tourFonction() {
     } else {
         // function fin de partie
         alert('fin de la partie !')
+        window.location.reload();
     }
 }
 

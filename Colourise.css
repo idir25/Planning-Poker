@@ -11,11 +11,22 @@ body {
 }
 
 #choixPseudos.show,#choixModeJeu.show, #choixNbrFonction.show, #choixFonction.show {
+
 	opacity: 1;
     visibility: visible;
 }
 
-
+input[type=text] {
+	font-size: larger;
+	height: 20px;
+	color: #eee;
+	text-align: center;
+	-webkit-appearance: none;	
+	width: 	15%;
+	background-color: #4e0303;
+	box-shadow: #fffdfd;
+	border-radius: 10px;
+}
 input[type=range] {
 	height: 25px;
 	-webkit-appearance: none;	
@@ -34,6 +45,7 @@ input[type=range]::-webkit-slider-thumb {
 	background: #e3d0d0;
 	cursor: pointer;
 	-webkit-appearance: none;}
+
 	
 h1{
 	font-family: 'Roboto Condensed';
@@ -67,8 +79,8 @@ p1{
 	font-family: 'Times New Roman', Times, serif;
 }
 
-#champsPseudos {	
-	color: #fff;
+#champsPseudos,#champsFonction{	
+	color: #864526;
 	margin-top: -31px;
 	padding: 4px;
 }
@@ -76,7 +88,7 @@ p1{
 .box {
 	width: 100px;
 	height: 30px;
-	border: 1px solid #f13232;
+	border: 1px solid #f1eded;
 	font-size: 17px;
 	color: #701711;
 	background-color: #eee;
@@ -84,9 +96,12 @@ p1{
 }
 
 #modeJeu{
+	background-color: #4e0303;
+	color:white;
+	width: 20%;
 	text-align: center;
 	position: relative;
-	top: -30px;
+	top: -23px;
 	left: 50px;
 }
 
@@ -109,8 +124,8 @@ p1{
 	background-color: #9e072c;
 	transform: scale(1.05);
 }
-.sd{
+#commencerJeu{
 	position: relative;
 	top: 10px;
-	right: 50px;
+	right: 120px;
 }

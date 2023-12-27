@@ -62,10 +62,44 @@ h2{
 	height: 50px;
 	position: relative;
 	top: 280px;
-	 left: 500px;
+    left: 500px;
 	 
 }
 #num_fonction{
 	display: inline-block;
 
+}
+#debat1,#debat2{
+position: relative;
+top:-200px;	
+}
+
+#deb{
+text-align: center;
+position: relative;
+left: 25px;
+}
+
+
+#validerAvis1,#validerAvis2{
+  border-radius: 10%;
+  width: 90px;
+  height: 40px;
+  background-color:white;
+  text-align: center; 
+  font-size: larger;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#validerAvis1:hover, #validerAvis2:hover {
+  background-color: #000000;
+  color:white;
+  transform: scale(1.05);
+}
+
+#validerAvis1:active, #validerAvis2:active{
+  transform: scale(0.95);
 }
