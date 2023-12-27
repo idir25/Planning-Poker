@@ -199,24 +199,23 @@ function afficherModeJeu() {
 
 
 
-function gérerMoyenne() {
-    // Logique pour gérer le mode "Moyenne"
-    // ...
-}
 
-var modeJeu = document.getElementById('modeJeu').value;
-if (modeJeu === 'unanimité') {
-        gérerUnanimité();
-    } else {
-        
-    }
-    
+
     /////////////////////////////////// Page Partie.html /////////////////////////////////////////////////
-    
-    function commencerJeu() {
 
-    // ANIMATION DES CARTES
+
+    
+
+
+
+
+
+
+
+    function commencerJeu() {
+        
     var cartes = document.querySelectorAll(".cartes");
+    // ANIMATION DES CARTES
     cartes.forEach(function (carte) {
       carte.addEventListener("mouseenter", () => {
           carte.classList.add("transition");
@@ -230,6 +229,7 @@ if (modeJeu === 'unanimité') {
         carte.classList.remove("transition");
       });
     });
+
     
     // Vérifier si un mode de jeu a été stocké
     var modeJeu = localStorage.getItem('modeJeu');
@@ -257,25 +257,118 @@ if (modeJeu === 'unanimité') {
     document.getElementById("num_fonction").textContent = '1';
 
 
-    if (modeJeu) {
-        // Faire quelque chose avec le mode de jeu (par exemple, l'afficher)
-        alert('Mode de jeu sélectionné : ' + modeJeu);
-    } 
-    else {
-        // Aucun mode de jeu n'a été stocké
-        console.log('Aucun mode de jeu n\'a été stocké.');
+
+
+
+
+
+
+
+
+
+
+
+
+    function gestionModeJeu() {
+        if (modeJeu) {
+            // Afficher le mode de jeu sélectionné
+            alert('Mode de jeu sélectionné : ' + modeJeu);
+        } else {
+            // Aucun mode de jeu n'a été stocké
+            console.log('Aucun mode de jeu n\'a été stocké.');
+        }
+    
+        // Gérer le mode de jeu spécifique
+        if (modeJeu === 'unanimité') {
+            gererUnanimite();
+        } else if (modeJeu === 'moyenne') {
+            gererMoyenne();
+        }
     }
     
-    if (modeJeu === 'unanimité') {
-        gérerUnanimité();
-        
-    } 
+    // Fonction pour gérer le mode de jeu "Moyenne"
+    function gererMoyenne() {
+        var indexJoueurs = 0;
+        var cartesChoisies = [];
+        var valeursAutorisees = [0, 1, 2, 3, 5, 8, 13, 20, 40, 100];
     
-    else if (modeJeu === 'moyenne') {
-        gérerMoyenne();
+        function updateInterface() {
+            document.getElementById("nom_joueur").textContent = listJoueur[indexJoueurs];
+            document.getElementById("num_joueur").textContent = (indexJoueurs + 1).toString();
+        }
+    
+        cartes.forEach(function (carte) {
+            carte.addEventListener("click", () => {
+                var valeurCarte = parseInt(carte.id);
+    
+                if (valeursAutorisees.includes(valeurCarte)) {
+                    cartesChoisies.push(valeurCarte);
+                } else {
+                    alert("Veuillez choisir une carte avec une valeur autorisée.");
+                    return;
+                }
+    
+                indexJoueurs++;
+                if (indexJoueurs < listJoueur.length) {
+                    updateInterface();
+                } else {
+                    if (cartesChoisies.length > 0) {
+                        valeursAutorisees.sort((a, b) => a - b);
+                        var carteMoyenne = Math.round(cartesChoisies.reduce((a, b) => a + b) / cartesChoisies.length);
+                        var carteLaPlusProche = valeursAutorisees.reduce((prev, curr) =>
+                            Math.abs(curr - carteMoyenne) < Math.abs(prev - carteMoyenne) ? curr : prev
+                        );
+                        alert('La carte moyenne choisie est : ' + carteLaPlusProche);
+                    } else {
+                        alert("Aucune carte choisie. Veuillez choisir une carte avec une valeur autorisée.");
+                    }
+                }
+            });
+        });
+    }
+    
+    // Fonction pour gérer le mode de jeu "Unanimité"
+    function gererUnanimite() {
+        var indexJoueurs = 0;
+        var cartesChoisies = {};
+    
+        function updateInterface() {
+            document.getElementById("nom_joueur").textContent = listJoueur[indexJoueurs];
+            document.getElementById("num_joueur").textContent = (indexJoueurs + 1).toString();
+        }
+    
+        cartes.forEach(function (carte) {
+            carte.addEventListener("click", () => {
+                var joueurActuel = listJoueur[indexJoueurs];
+                cartesChoisies[joueurActuel] = carte.id;
+    
+                indexJoueurs++;
+                if (indexJoueurs < listJoueur.length) {
+                    updateInterface();
+                } else {
+                    var cartesUniques = new Set(Object.values(cartesChoisies));
+                    if (cartesUniques.size === 1) {
+                        alert('Unanimité sur la carte ' + Array.from(cartesUniques)[0]);
+                    } else {
+                        alert("Certains joueurs ne sont pas d'accord sur le choix de la carte.");
+                        alert("LA PARTIE EST RELANCE");
+                        window.location.reload();
+                    }
+                }
+            });
+        });
+    }
+    
+    // Appel de la fonction principale
+    gestionModeJeu();
     }
 
-}
+
+
+
+
+
+
 
 
 // Fonction qui affiche la fenêtre de débat :
@@ -402,5 +495,95 @@ fonctionnaliteSuivante.addEventListener("click", () => {
     }
 });
 */
+
+
+
+// ANIMATION DES CARTES
+
+// var cartes = document.querySelectorAll(".cartes");
+
+// cartes.forEach(function (carte) {
+//     carte.addEventListener("mouseenter", () => {
+//       carte.classList.add("transition");
+  
+//       carte.addEventListener("mouseup", () => {
+//         // Gestion des événements liés aux cartes : 
+//         joueurActuel = parseInt(document.getElementById("num_joueur").textContent);
+//         joueurActuel -= 1;
+//         noteJoueur.push(carte.id);
+  
+//         if (
+//           (voteMin === undefined || parseInt(voteMin) > parseInt(noteJoueur[joueurActuel])) &&
+//           (noteJoueur[joueurActuel] !== '???' && noteJoueur[joueurActuel] !== 'cafe')
+//         ) {
+//           alert(noteJoueur[joueurActuel]);
+//           voteMin = noteJoueur[joueurActuel];
+//           joueurMin = listJoueur[joueurActuel];
+//         }
+  
+//         if (
+//           (voteMax === undefined || parseInt(voteMax) < parseInt(noteJoueur[joueurActuel])) &&
+//           (noteJoueur[joueurActuel] !== '???' && noteJoueur[joueurActuel] !== 'cafe')
+//         ) {
+//           alert(noteJoueur[joueurActuel]);
+//           voteMax = noteJoueur[joueurActuel];
+//           joueurMax = listJoueur[joueurActuel];
+//         }
+  
+//         joueurActuel += 1;
+//         if (joueurActuel < listJoueur.length) {
+//           // Tant que le dernier joueur de la liste n'a pas voté, on passe au joueur suivant :
+//           alert('joueur suivant');
+//           document.getElementById("nom_joueur").textContent = listJoueur[joueurActuel];
+//           document.getElementById("num_joueur").textContent = joueurActuel + 1;
+//         } else if (voteMin === undefined) {
+//           // Si la variable min n'est pas définie, cela signifie que tous les joueurs ont choisi le café ou l'interrogation :
+//           if (noteJoueur[1] === 'cafe') {
+//             // function fin de partie
+//             alert('fin de la partie !');
+//           } else {
+//             alert('Tout le monde doit revoter !');
+//             noteJoueur = [];
+//             document.getElementById("num_joueur").textContent = '1';
+//             document.getElementById("nom_joueur").textContent = listJoueur[0];
+//           }
+//         } else if (voteMin == voteMax) {
+//           alert("C pas normal");
+//           tourFonction();
+//         } else if (tourVote === 1) {
+//           // Si c'est le premier tour de vote, il y a débat
+//           debat(joueurMin, voteMin, joueurMax, voteMax);
+//         } else if (regle === 'unanimité') {
+//           // Si ce n'est pas le premier tour de vote, on applique des traitements spécifiques aux règles choisies.
+//           debat(joueurMin, voteMin, joueurMax, voteMax);
+//         } else if (regle === 'moyenne') {
+//           var som = 0;
+//           var div = 0;
+//           for (i = 0; i < noteJoueur.length; i++) {
+//             if (noteJoueur[i] !== 'cafe' && noteJoueur[i] !== '???') {
+//               som += noteJoueur[i];
+//               div += 1;
+//             }
+//           }
+//           som /= div;
+//           som = Math.ceil(som); // On arrondi le nombre vers le haut
+//           while (![1, 2, 3, 5, 8, 13, 20, 40, 100].includes(som)) {
+//             som += 1;
+//           }
+//           noteFonction.push(som);
+//           tourFonction();
+//         } else if (regle === 'majoritéRelative') {
+//           // function majRelative()
+//         }
+//       });
+//       // Fin de la fonction d'écoute du click sur les cartes.
+//     });
+
+
+// //   ANNULER L'EFFET DE L'ANIMATION QUAND ON SORS DE LA CARTE
+//   carte.addEventListener("mouseleave", () => {
+//     carte.classList.remove("transition");
+//   });
+// });
 
 

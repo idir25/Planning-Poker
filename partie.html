@@ -21,18 +21,21 @@
     <div id="content-wrap">    
         <div id="main" >    
             <div id="deck">
-                <div id="carte0" class="cartes"> <img src="cartes/cartes_0.svg" style="width:75px;"/> </div>  <!-- 1ère case de la 1ère ligne (en haut à gauche) -->
-                <div id="1" class="cartes"> <img src="cartes/cartes_1.svg" style="width:75px;"/> </div>  
-                <div id="2" class="cartes"> <img src="cartes/cartes_2.svg" style="width:75px;"/> </div> 
-                <div id="3" class="cartes"> <img src="cartes/cartes_3.svg" style="width:75px;"/> </div>  
-                <div id="5" class="cartes"> <img src="cartes/cartes_5.svg" style="width:75px;"/> </div> 
-                <div id="8" class="cartes"> <img src="cartes/cartes_8.svg" style="width:75px;"/> </div>  
-                <div id="13" class="cartes"> <img src="cartes/cartes_13.svg" style="width:75px;"/> </div>
-                <div id="20" class="cartes"> <img src="cartes/cartes_20.svg" style="width:75px;"/> </div>
-                <div id="40" class="cartes"> <img src="cartes/cartes_40.svg" style="width:75px;"/> </div>
-                <div id="100" class="cartes"> <img src="cartes/cartes_100.svg" style="width:75px;"/> </div>
-                <div id="cafe" class="cartes"> <img src="cartes/cartes_cafe.svg" style="width:75px;"/> </div>
-                <div id="???" class="cartes"> <img src="cartes/cartes_interro.svg" style="width:75px;"/> </div>
+                <div id="0" class="cartes carte0"> <img src="cartes/cartes_0.svg" style="width:75px;"/> </div>  <!-- 1ère case de la 1ère ligne (en haut à gauche) -->
+                <div id="1" class="cartes carte1"> <img src="cartes/cartes_1.svg" style="width:75px;"/> </div>  
+                <div id="2" class="cartes carte2"> <img src="cartes/cartes_2.svg" style="width:75px;"/> </div> 
+                <div id="3" class="cartes carte3"> <img src="cartes/cartes_3.svg" style="width:75px;"/> </div>  
+                <div id="5" class="cartes carte5"> <img src="cartes/cartes_5.svg" style="width:75px;"/> </div> 
+                <div id="8" class="cartes carte8"> <img src="cartes/cartes_8.svg" style="width:75px;"/> </div>  
+                <div id="13" class="cartes carte13"> <img src="cartes/cartes_13.svg" style="width:75px;"/> </div>
+                <div id="20" class="cartes carte20"> <img src="cartes/cartes_20.svg" style="width:75px;"/> </div>
+                <div id="40" class="cartes carte40"> <img src="cartes/cartes_40.svg" style="width:75px;"/> </div>
+                <div id="100" class="cartes carte100"> <img src="cartes/cartes_100.svg" style="width:75px;"/> </div>
+                <div id="cafe" class="cartes carte_cafe"> <img src="cartes/cartes_cafe.svg" style="width:75px;"/> </div>
+                <div id="interro" class="cartes carte_interro"> <img src="cartes/cartes_interro.svg" style="width:75px;"/> </div>
+            </div>
+            <div id="sidebar">
+                <h1>C'est au tour du joueur <p1 id="num_joueur"></p1> : <p1 id="nom_joueur"></p1></h1>
             </div>
             <div id="debat1">
                 <h1>Avis de <p1 id="min_joueur"></p1> qui a voté(e) : <p1 id = "min_vote"></p1></h1>
@@ -46,9 +49,6 @@
             </div>
         </div>
         
-        <div id="sidebar">
-            <h1>C'est au tour du joueur : <p1 id="num_joueur"></p1> :<p1 id="nom_joueur"></p1></h1>
-        </div>
     </div>
 </div>
 
