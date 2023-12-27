@@ -1,23 +1,30 @@
+const audio = new Audio("select.mp3");
+
+const son = ()=>{
+const audio = new Audio();
+audio.src = "./enter.mp3"
+audio.play();
+};
+
+
 // On vérifie si la page est "initilisation.html" :
 if (window.location.href.indexOf("initiallisation.html") > -1) {
-	document.getElementById("suivant1").addEventListener("click", afficherPseudos);
+    document.getElementById("suivant1").addEventListener("click", afficherPseudos);
 	document.getElementById("suivant2").addEventListener("click", afficherNbrFonction);
     document.getElementById("suivant3").addEventListener("click", afficherFonction);
     document.getElementById("suivant4").addEventListener("click", afficherModeJeu);
 	document.getElementById("commencerJeu").addEventListener("click", pagePartie);
+        
+    /////////////AFFICHER LE NOMBRE DE PSEUDOS ET DE FONCTIONNALITES//////// 
+
+    // Récupérer l'élément du formulaire pour le nombre de pseudos
+    var slide = document.getElementById("nbrJoueurs");
     
-
+    // Récupérer l'élément où afficher la valeur du nombre de pseudos
+    var out = document.getElementById("value");
     
-/////////////AFFICHER LE NOMBRE DE PSEUDOS ET DE FONCTIONNALITES//////// 
-
-// Récupérer l'élément du formulaire pour le nombre de pseudos
-var slide = document.getElementById("nbrJoueurs");
-
-// Récupérer l'élément où afficher la valeur du nombre de pseudos
-var out = document.getElementById("value");
-
-// Utiliser une fonction fléchée pour définir l'action lors de l'input
-slide.addEventListener("input", () => out.textContent = slide.value);
+    // Utiliser une fonction fléchée pour définir l'action lors de l'input
+    slide.addEventListener("input", () => out.textContent = slide.value);
 
 // Appeler la fonction initiale pour afficher la valeur initiale
 out.textContent = slide.value;
@@ -33,24 +40,36 @@ out1.textContent = slide1.value;
 
 // On vérifie si la page est "partie.html" :
 if (window.location.href.indexOf("partie.html") > -1) {
-	window.addEventListener("load", commencerJeu);
+    window.addEventListener("load", commencerJeu);
     document.getElementById("validerAvis1").addEventListener("click", validAvis1);
     document.getElementById("validerAvis2").addEventListener("click", validAvis2);
 }
 
+if (window.location.href.indexOf("acceuil2.html") > -1) {
+    document.querySelector(".btn1").addEventListener("click", ()=>{
+        son();
+    });
+
+}
+
 // Fonctions pour relier les pages html entre elles
 function pageAcceuil2() {
-    window.location.href = 'acceuil2.html';
+    window.location.href = 'acceuil2.html'
 }
 function pagePartie() {
+    son();
     var modeJeu = document.getElementById('modeJeu').textContent;
     localStorage.setItem('regle', JSON.stringify(modeJeu));
     localStorage.setItem('pseudos', JSON.stringify(listJoueur));
     window.location.href = 'partie.html';
+    
 }
 function redirectToAcceuil2() {
     window.location.href = 'C:/Users/yidir/Desktop/dd/acceuil2.html';
+    
 }
+
+
 
 
 
@@ -82,6 +101,7 @@ var showNbrFonction = document.getElementById("choixNbrFonction");
 
 
 function afficherPseudos() {
+    son();
     var nbrJoueurs = document.getElementById("nbrJoueurs").value;
     var champsPseudos = document.getElementById("champsPseudos");
     
@@ -109,7 +129,9 @@ function afficherPseudos() {
 }
 
 // Affichage de l'option de sélection du nombre de fonctionnalitées :
+
 function afficherNbrFonction() {
+    son();
     var pseudosInputs = document.querySelectorAll('input[name="pseudos[]"]');
     var tousRemplis = true;
     for (var i = 0; i < pseudosInputs.length; i++) {
@@ -140,6 +162,7 @@ function afficherNbrFonction() {
 
 // Affichage de l'option de saisie des noms des fonctionnalitées : 
 function afficherFonction() {
+    son();
     var nbrFonction = document.getElementById("nbrFonction").value;
     var champsFonction = document.getElementById("champsFonction");
     
@@ -168,6 +191,7 @@ function afficherFonction() {
 
 // Fonction pour afficher la section du mode de jeu
 function afficherModeJeu() {
+    son();
     // Vérifie que tous les champs de pseudos sont remplis
     var fonctionInputs = document.querySelectorAll('input[name="fonction[]"]');
     var tousRemplis = true;
@@ -210,18 +234,19 @@ function afficherModeJeu() {
 
 
 
+    
 
 
     function commencerJeu() {
-        
     var cartes = document.querySelectorAll(".cartes");
+
     // ANIMATION DES CARTES
     cartes.forEach(function (carte) {
       carte.addEventListener("mouseenter", () => {
           carte.classList.add("transition");
           
           carte.addEventListener("click", ()=>{
-              alert("Carte Sélectionné !");
+            audio.play();
             })
       });
       //   ANNULER L'EFFET DE L'ANIMATION QUAND ON SORS DE LA CARTE
@@ -232,12 +257,12 @@ function afficherModeJeu() {
 
     
     // Vérifier si un mode de jeu a été stocké
-    var modeJeu = localStorage.getItem('modeJeu');
     var pseudosString = localStorage.getItem('pseudos');
     var fonctionString = localStorage.getItem('fonction');
     var regle = localStorage.getItem('regle');
+    var modeJeu = localStorage.getItem('modeJeu');
     
-
+    
     // Convertir la chaîne JSON en tableau (PSEUDOS)
     var pseudos = JSON.parse(pseudosString);
     // Faire quelque chose avec les pseudos (par exemple, les afficher)
@@ -255,21 +280,22 @@ function afficherModeJeu() {
     }
     document.getElementById("nom_fonction").textContent = listFonction[0];
     document.getElementById("num_fonction").textContent = '1';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     function gestionModeJeu() {
+        
         if (modeJeu) {
             // Afficher le mode de jeu sélectionné
             alert('Mode de jeu sélectionné : ' + modeJeu);
@@ -277,11 +303,11 @@ function afficherModeJeu() {
             // Aucun mode de jeu n'a été stocké
             console.log('Aucun mode de jeu n\'a été stocké.');
         }
-    
+        
         // Gérer le mode de jeu spécifique
-        if (modeJeu === 'unanimité') {
+        if (modeJeu == 'unanimité') {
             gererUnanimite();
-        } else if (modeJeu === 'moyenne') {
+        } else if (modeJeu == 'moyenne') {
             gererMoyenne();
         }
     }
@@ -307,7 +333,6 @@ function afficherModeJeu() {
                     alert("Veuillez choisir une carte avec une valeur autorisée.");
                     return;
                 }
-    
                 indexJoueurs++;
                 if (indexJoueurs < listJoueur.length) {
                     updateInterface();
@@ -319,6 +344,8 @@ function afficherModeJeu() {
                             Math.abs(curr - carteMoyenne) < Math.abs(prev - carteMoyenne) ? curr : prev
                         );
                         alert('La carte moyenne choisie est : ' + carteLaPlusProche);
+                        window.location.reload();
+
                     } else {
                         alert("Aucune carte choisie. Veuillez choisir une carte avec une valeur autorisée.");
                     }
@@ -341,7 +368,7 @@ function afficherModeJeu() {
             carte.addEventListener("click", () => {
                 var joueurActuel = listJoueur[indexJoueurs];
                 cartesChoisies[joueurActuel] = carte.id;
-    
+                
                 indexJoueurs++;
                 if (indexJoueurs < listJoueur.length) {
                     updateInterface();
@@ -358,22 +385,34 @@ function afficherModeJeu() {
             });
         });
     }
-    
     // Appel de la fonction principale
+    
+
+    // Déclarer en dehors de la fonction pour la rendre accessible à fonctionnalite
+    
     gestionModeJeu();
-    }
+    
+}
+var indexFonction = 0; // Variable pour suivre l'index actuel de la fonctionnalité
+var fonctionnaliteSuivante = document.getElementById("suivant");
+
+fonctionnaliteSuivante.addEventListener("click", () => {
+indexFonction++; 
+if (indexFonction < listFonction.length) {
+    document.getElementById("nom_fonction").textContent = listFonction[indexFonction];
+    document.getElementById("num_fonction").textContent = (indexFonction + 1).toString();
 
 
-
-
-
-
-
+} else {
+    // Si nous atteignons la fin de la liste, on peux choisir de réinitialiser à zéro ou effectuer d'autres actions.
+    console.log('Fin des fonctionnalités.');
+    alert("FIN DE LA PARTIE !")
+}
+});
 
 
 // Fonction qui affiche la fenêtre de débat :
-
-function debat(joueurMin, voteMin, joueurMax, voteMax){
+function debat(listJoueur, joueurMax, voteMax){
     noteJoueur = []; // on réinitialise la liste des avis des joueurs car ils vont devoir à nouveau voter
     document.getElementById("num_joueur").textContent = '1';
     document.getElementById("nom_joueur").textContent = listJoueur[0];
@@ -478,23 +517,7 @@ function tourFonction() {
 }
 
 //ACTUALISER LES FONCTIONNALTES QUAND ON CLIQUE SUR SUIVANT
-/*
-var indexFonction = 0; // Variable pour suivre l'index actuel de la fonctionnalité
-var fonctionnaliteSuivante = document.getElementById("suivant");
 
-fonctionnaliteSuivante.addEventListener("click", () => {
-    indexFonction++;
-
-    if (indexFonction < listFonction.length) {
-        document.getElementById("nom_fonction").textContent = listFonction[indexFonction];
-        document.getElementById("num_fonction").textContent = (indexFonction + 1).toString();
-    } else {
-        // Si nous atteignons la fin de la liste, on peux choisir de réinitialiser à zéro ou effectuer d'autres actions.
-        console.log('Fin des fonctionnalités.');
-        alert("FIN DE LA PARTIE !")
-    }
-});
-*/
 
 
 

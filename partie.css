@@ -1,5 +1,6 @@
 body{
-	background-color: rgb(32, 7, 2);
+	background-image: url("fond2.jpg");
+	background-size: cover;
 }
 #deck {
     display: flex;
