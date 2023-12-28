@@ -1,92 +1,190 @@
-body{
-	background-image: url("fond2.jpg");
-	background-size: cover;
+body {
+  background-image: url("fond2.jpg");
+  background-size: cover;
 }
+
+:root {
+  --color-1: #186cb8;
+  --color-2: #2a9a9f;
+  --color-3: #f1b211;
+  --color-4: #e83611;
+  --color-5: #f9002f;
+}
+
+.wrapper {
+  line-height: 1;
+  text-align: center;
+}
+
+h2 {
+  font-family: "Exo", sans-serif;
+  font-size: 3vw;
+  font-weight: 900;
+  width: -webkit-min-content;
+  width: -moz-min-content;
+  width: min-content;
+  margin: auto;
+  text-transform: uppercase;
+  background: linear-gradient(
+    219deg,
+    var(--color-1) 19%,
+    transparent 19%,
+    transparent 20%,
+    var(--color-2) 20%,
+    var(--color-2) 39%,
+    transparent 39%,
+    transparent 40%,
+    var(--color-3) 40%,
+    var(--color-3) 59%,
+    transparent 59%,
+    transparent 60%,
+    var(--color-4) 60%,
+    var(--color-4) 79%,
+    transparent 79%,
+    transparent 80%,
+    var(--color-5) 80%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
 #deck {
-    display: flex;
-    justify-content: center; 
-} 
-
-#avis1, #avis2, #debat1, #debat2 {
-	opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+  display: flex;
+  justify-content: center;
 }
 
-#avis1.show, #avis2.show, #debat1.show, #debat2.show {
-	opacity: 1;
-    visibility: visible;
+#avis1,
+#avis2,
+#debat1,
+#debat2 {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
 }
 
-  /* Utilisez les couleurs en fonction de la difficulté */
-.carte0 { background-color: #5cb85c;transition: transform 0.3s ease;}
-.carte1 { background-color: #8bc34a;transition: transform 0.3s ease;}
-.carte2 { background-color: #cddc39; transition: transform 0.3s ease;}
-.carte3 { background-color: #ffc107; transition: transform 0.3s ease;}
-.carte5 { background-color: #ff9800; transition: transform 0.3s ease;}
-.carte8 { background-color: #f44336; transition: transform 0.3s ease;}
-.carte13 { background-color: #e91e63; transition: transform 0.3s ease;}
-.carte20 { background-color: #9c27b0; transition: transform 0.3s ease;}
-.carte40 { background-color: #673ab7; transition: transform 0.3s ease;}
-.carte100 { background-color: #990000; transition: transform 0.3s ease;}
-.carte_cafe { background-color: #644101; transition: transform 0.3s ease;}
-.carte_interro {background: linear-gradient(to right, #2e3d49, #34495e, #2c3e50, #2980b9, #3498db, #1abc9c, #27ae60, #7f8c8d);transition: transform 0.3s ease;}
+#avis1.show,
+#avis2.show,
+#debat1.show,
+#debat2.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Utilisez les couleurs en fonction de la difficulté */
+.carte0 {
+  background-color: #5cb85c;
+  transition: transform 0.3s ease;
+}
+.carte1 {
+  background-color: #8bc34a;
+  transition: transform 0.3s ease;
+}
+.carte2 {
+  background-color: #cddc39;
+  transition: transform 0.3s ease;
+}
+.carte3 {
+  background-color: #ffc107;
+  transition: transform 0.3s ease;
+}
+.carte5 {
+  background-color: #ff9800;
+  transition: transform 0.3s ease;
+}
+.carte8 {
+  background-color: #f44336;
+  transition: transform 0.3s ease;
+}
+.carte13 {
+  background-color: #e91e63;
+  transition: transform 0.3s ease;
+}
+.carte20 {
+  background-color: #9c27b0;
+  transition: transform 0.3s ease;
+}
+.carte40 {
+  background-color: #673ab7;
+  transition: transform 0.3s ease;
+}
+.carte100 {
+  background-color: #990000;
+  transition: transform 0.3s ease;
+}
+.carte_cafe {
+  background-color: #644101;
+  transition: transform 0.3s ease;
+}
+.carte_interro {
+  background: linear-gradient(
+    to right,
+    #2e3d49,
+    #34495e,
+    #2c3e50,
+    #2980b9,
+    #3498db,
+    #1abc9c,
+    #27ae60,
+    #7f8c8d
+  );
+  transition: transform 0.3s ease;
+}
 
 .cartes {
-	margin: 0 5px; 
-	border-radius: 10%;
+  margin: 0 5px;
+  border-radius: 10%;
+}
+#nom_fonction,h1 {
+  font-family: "Exo", sans-serif;
+  text-align: center;
+  color: #fffdfd;
+}
+#titre1 {
+  font-family: "Exo", sans-serif;
+  text-transform: uppercase;
+  text-align: center;
+  color: white;
+  opacity: 80%;
+}
+#nom_joueur {
+  color: #d22d04;
+  text-transform: none;
 }
 
-h1 {
-	text-align: center;
-	color: #f1edea;
+.transition {
+  transform: scale(1.2);
 }
 
-h2{
-	text-align: center;
-	font-family: 'Roboto Condensed';
-	font-size: 50px; 
-	letter-spacing: 8px;
-	color: #fff;
-	position: relative;
-	pointer-events: none;
-	text-shadow: 0 0 2px #FF0000, 0 0 30px #FF0000, 5px 9px 5px #333, 0 0 150px #FF0000; 
+#suivant {
+  width: 200px;
+  height: 50px;
+  position: relative;
+  top: 280px;
+  left: 500px;
+}
+#num_fonction {
+  display: inline-block;
+}
+#debat1,
+#debat2 {
+  position: relative;
+  top: -200px;
 }
 
-.transition{
-		transform: scale(1.2);		
+#deb {
+  text-align: center;
+  position: relative;
+  left: 25px;
 }
 
-#suivant{
-	width: 200px;
-	height: 50px;
-	position: relative;
-	top: 280px;
-    left: 500px;
-	 
-}
-#num_fonction{
-	display: inline-block;
-
-}
-#debat1,#debat2{
-position: relative;
-top:-200px;	
-}
-
-#deb{
-text-align: center;
-position: relative;
-left: 25px;
-}
-
-
-#validerAvis1,#validerAvis2{
+#validerAvis1,
+#validerAvis2 {
   border-radius: 10%;
   width: 90px;
   height: 40px;
-  background-color:white;
-  text-align: center; 
+  background-color: white;
+  text-align: center;
   font-size: larger;
   cursor: pointer;
   border: none;
@@ -94,12 +192,14 @@ left: 25px;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-#validerAvis1:hover, #validerAvis2:hover {
+#validerAvis1:hover,
+#validerAvis2:hover {
   background-color: #000000;
-  color:white;
+  color: white;
   transform: scale(1.05);
 }
 
-#validerAvis1:active, #validerAvis2:active{
+#validerAvis1:active,
+#validerAvis2:active {
   transform: scale(0.95);
 }
