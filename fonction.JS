@@ -1,3 +1,4 @@
+// gestion des effets sonores : 
 const audio = new Audio("select.mp3");
 
 const son = () => {
@@ -5,6 +6,15 @@ const son = () => {
   audio.src = "./enter.mp3";
   audio.play();
 };
+
+/*
+// On vérifie si la page est "accueil2.html" :
+if (window.location.href.indexOf("accueil2.html") > -1){
+    document.getElementById("reprendre").addEventListener("click", chargerPartie);
+}
+*/
+
+
 // On vérifie si la page est "initilisation.html" :
 if (window.location.href.indexOf("initiallisation.html") > -1) {
 	document.getElementById("suivant1").addEventListener("click", afficherPseudos);
@@ -50,7 +60,7 @@ function pageAcceuil2() {
     window.location.href = 'acceuil2.html';
 }
 function pagePartie() {
-    var modeJeu = document.getElementById('modeJeu').textContent;
+    var modeJeu = document.getElementById('modeJeu').value;
     localStorage.setItem('regle', JSON.stringify(modeJeu));
     localStorage.setItem('pseudos', JSON.stringify(listJoueur));
     window.location.href = 'partie.html';
@@ -59,11 +69,27 @@ function redirectToAcceuil2() {
     window.location.href = 'C:/Users/yidir/Desktop/dd/acceuil2.html';
 }
 
+///////////////////////////////////// Page accueil2.html ///////////////////////////////////
+
+/*
+function chargerPartie(){
+    document.getElementById("choixFichier").click();
+}
+
+// Ajoutez un gestionnaire d'événements pour le changement de fichier sélectionné
+document.getElementById("choixFichier").addEventListener("change", function(event) {
+    // Accédez au fichier sélectionné
+    var fichier = event.target.files[0];
+    // Faites quelque chose avec le fichier, par exemple, affichez son nom
+    alert("Fichier sélectionné : " + fichier.name);
+});
+*/
+
 
 
 /////////////////////////////////////  Page Initialisation.html ///////////////////////////////////////////
 
-//// ATTENTION : IL Y A PLUSIEURS VARIABLES GLOBALES //////
+//// VARIABLES GLOBALES //////
 // On créer la liste des joueurs si elle n'existe pas
 
 if (listJoueur == undefined) {
@@ -289,7 +315,6 @@ function handleMouseUp(carte) {
 
     if (joueurActuel < listJoueur.length) {
         // Tant que le dernier joueur de la liste n'a pas voté, on passe au joueur suivant :
-        // alert('joueur suivant');
 
         document.getElementById("nom_joueur").textContent = listJoueur[joueurActuel];
         document.getElementById("num_joueur").textContent = joueurActuel + 1;
@@ -300,7 +325,8 @@ function handleMouseUp(carte) {
         // Ajouter une fonction qui vérifie si toutes les cartes sont bien des cartes café
         if (noteJoueur.every(element => element === 'cafe')) {
             // function fin de partie
-            alert('fin de la partie !');
+            alert('la partie a été mise en pause !');
+            finPartie();
             return;
         } else {
             // Tous ou certains joueurs ont choisi la carte '???' :
@@ -342,8 +368,6 @@ function handleMouseUp(carte) {
     } else if (regle === 'majoritéRelative') {
         // function majRelative()
     }
-    alert('fin intermédiaire');
-    // Réinitialiser le drapeau après le traitement
 }
 
 function handleMouseEnter(carte) {
@@ -380,6 +404,7 @@ function debat(joueurMin, voteMin, joueurMax, voteMax){
     noteJoueur = []; // on réinitialise la liste des avis des joueurs car ils vont devoir à nouveau voter
     document.getElementById("num_joueur").textContent = '1';
     document.getElementById("nom_joueur").textContent = listJoueur[0];
+
     // On masque les cartes :
     var hideCartes = document.getElementById("deck");
     hideCartes.style.visibility = "hidden";
@@ -418,7 +443,7 @@ function validAvis1() {
         console.error('Erreur lors de l\'enregistrement dans le Local Storage:', error);
         alert('Erreur lors de l\'enregistrement dans le Local Storage. Veuillez consulter la console pour plus d\'informations.');
     }
-
+    document.getElementById('zone_debat1').value = '';
     var hideDebat = document.getElementById("debat1");
     hideDebat.style.visibility = "hidden";
     hideDebat.classList.remove("show");
@@ -446,6 +471,7 @@ function validAvis2(){
         alert('Erreur lors de l\'enregistrement dans le Local Storage. Veuillez consulter la console pour plus d\'informations.');
     }
 
+    document.getElementById('zone_debat2').value = '';
     var hideDebat = document.getElementById("debat2");
     hideDebat.style.visibility = "hidden";
     hideDebat.classList.remove("show");
@@ -471,11 +497,10 @@ function validAvis2(){
 function tourFonction() {
     document.getElementById('avis1').textContent = '';
     document.getElementById('avis2').textContent = '';
+
     fonctionActuelle = parseInt(document.getElementById("num_fonction").textContent); // Fonctionnalité actuellement débattu 
-    fonctionActuelle -= 1;
     
     if (fonctionActuelle < listFonction.length) { // Tant que toutes les fonctionnalités n'ont pas été votées, on passe à la suivante :
-        fonctionActuelle += 1;
         document.getElementById("nom_fonction").textContent = listFonction[fonctionActuelle];
         document.getElementById("num_fonction").textContent = parseInt(fonctionActuelle) + 1;
         document.getElementById("nom_joueur").textContent = listJoueur[0];
@@ -484,27 +509,46 @@ function tourFonction() {
     } else {
         // function fin de partie
         alert('fin de la partie !')
+        finPartie();
         window.location.reload();
     }
 }
 
-//ACTUALISER LES FONCTIONNALTES QUAND ON CLIQUE SUR SUIVANT
-/*
-var indexFonction = 0; // Variable pour suivre l'index actuel de la fonctionnalité
-var fonctionnaliteSuivante = document.getElementById("suivant");
 
-fonctionnaliteSuivante.addEventListener("click", () => {
-    indexFonction++;
+function finPartie(){
+// On prépare le fichier JSON qui sera sauvegardé : 
+    const data = {
+        listeDesJoueur: listJoueur,
+        listeDesFontion : listFonction,
+        noteDesFonction : noteFonction,
+        modeDeJeu : regle
+    };
 
-    if (indexFonction < listFonction.length) {
-        document.getElementById("nom_fonction").textContent = listFonction[indexFonction];
-        document.getElementById("num_fonction").textContent = (indexFonction + 1).toString();
-    } else {
-        // Si nous atteignons la fin de la liste, on peux choisir de réinitialiser à zéro ou effectuer d'autres actions.
-        console.log('Fin des fonctionnalités.');
-        alert("FIN DE LA PARTIE !")
-    }
-});
-*/
+    // On converti data en format JSON : 
+    const jsonData = JSON.stringify(data, null, 2);
+
+    // On créer un objet Blob à partir de la chaîne JSON
+    const blob = new Blob([jsonData], { type: 'application/json' });
+
+    // On créer un lien pour télécharger le fichier JSON : 
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'NotesFonctionnalites.json';
+
+    // Ajout du lien à la page
+    document.body.appendChild(link);
+
+    // Clic automatique sur le lien pour déclencher le téléchargement
+    link.click();
+
+    // Suppression du lien de la page
+    document.body.removeChild(link);
+
+    console.log('Données sauvegardées avec succès dans le fichier "resultatPlanning.json"');
+    window.location.href = 'acceuil2.html';
+    
+
+}
+
 
 
