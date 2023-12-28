@@ -18,7 +18,7 @@ Fonctionnalités
 •	Suivi des estimations : Suivez les estimations et les résultats pour chaque fonctionnalité.
 
 Installation
-1.	Clonez le dépôt : git clone https://github.com/votre-utilisateur/planning-poker.git
+1.	Clonez le dépôt : git clone https://github.com/idir25/Planning-Poker/tree/main
 2.	Ouvrez le fichier acceuil.html dans votre navigateur.
    
 Structure du code
