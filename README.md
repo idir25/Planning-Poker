@@ -28,7 +28,7 @@ Le code est organisé de manière logique pour faciliter la compréhension et la
 *	initialisation.html : Page d'initialisation du jeu avec configuration des joueurs et des fonctionnalités.
 *	partie.html : Page principale du jeu avec gestion des tours et des estimations.
 *	fonction.js : Fichier JavaScript contenant le code pour les fonctionnalités du jeu.
-*	stylez.css : Feuille de style pour la mise en page et le style visuel.
+*	stylez.css, btn.css, coulourise.css, partie.css : Feuille de style pour la mise en page et le style visuel.
 
 # Contribuer
 Si vous souhaitez contribuer, suivez ces étapes :
