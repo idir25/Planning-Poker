@@ -1,10 +1,19 @@
 // gestion des effets sonores : 
 const audio = new Audio("select.mp3");
+
 const son = () => {
   const audio = new Audio();
   audio.src = "./enter.mp3";
   audio.play();
 };
+
+/*
+// On vérifie si la page est "accueil2.html" :
+if (window.location.href.indexOf("accueil2.html") > -1){
+    document.getElementById("reprendre").addEventListener("click", chargerPartie);
+}
+*/
+
 
 // On vérifie si la page est "initilisation.html" :
 if (window.location.href.indexOf("initiallisation.html") > -1) {
@@ -62,19 +71,19 @@ function redirectToAcceuil2() {
 
 ///////////////////////////////////// Page accueil2.html ///////////////////////////////////
 
+/*
+function chargerPartie(){
+    document.getElementById("choixFichier").click();
+}
 
-// function chargerPartie(){
-//     document.getElementById("choixFichier").click();
-// }
-
-// // Ajoutez un gestionnaire d'événements pour le changement de fichier sélectionné
-// document.getElementById("choixFichier").addEventListener("change", function(event) {
-//     // Accédez au fichier sélectionné
-//     var fichier = event.target.files[0];
-//     // Faites quelque chose avec le fichier, par exemple, affichez son nom
-//     alert("Fichier sélectionné : " + fichier.name);
-// });
-
+// Ajoutez un gestionnaire d'événements pour le changement de fichier sélectionné
+document.getElementById("choixFichier").addEventListener("change", function(event) {
+    // Accédez au fichier sélectionné
+    var fichier = event.target.files[0];
+    // Faites quelque chose avec le fichier, par exemple, affichez son nom
+    alert("Fichier sélectionné : " + fichier.name);
+});
+*/
 
 
 
@@ -285,6 +294,7 @@ function handleMouseUp(carte) {
     joueurActuel -= 1;
     noteJoueur.push(carte.id);
 
+    // On vérifie si son vote est le plus petit :  
     if (
         (voteMin === undefined || parseInt(voteMin) > parseInt(noteJoueur[joueurActuel])) &&
         ((noteJoueur[joueurActuel] !== '???') && (noteJoueur[joueurActuel] !== 'cafe'))
@@ -294,6 +304,7 @@ function handleMouseUp(carte) {
         joueurMin = listJoueur[joueurActuel];
     }
 
+    // On vérifie si son vote est le plus élevé : 
     if (
         (voteMax === undefined || parseInt(voteMax) < parseInt(noteJoueur[joueurActuel])) &&
         ((noteJoueur[joueurActuel] !== '???') && (noteJoueur[joueurActuel] !== 'cafe'))
@@ -304,6 +315,7 @@ function handleMouseUp(carte) {
     }
     joueurActuel += 1;
 
+    // On vérifie si le joueur qui a voté est le dernier joueur de la liste ou non :
     if (joueurActuel < listJoueur.length) {
         // Tant que le dernier joueur de la liste n'a pas voté, on passe au joueur suivant :
 
@@ -313,9 +325,9 @@ function handleMouseUp(carte) {
     } else if (voteMin === undefined) {
 
         // Si la variable min n'est pas définie, cela signifie que tous les joueurs ont choisi le café ou l'interrogation :
-        // Ajouter une fonction qui vérifie si toutes les cartes sont bien des cartes café
+        
+        // On vérifie si tous les joueurs ont choisi le café : 
         if (noteJoueur.every(element => element === 'cafe')) {
-            // function fin de partie
             alert('la partie a été mise en pause !');
             finPartie();
             return;
@@ -327,6 +339,7 @@ function handleMouseUp(carte) {
             document.getElementById("nom_joueur").textContent = listJoueur[0];
             return;
         }
+    // On vérifie s'il y a unanimité : 
     } else if (voteMin == voteMax) {
         noteFonction.push(noteJoueur[0]);
         tourFonction();
@@ -356,8 +369,6 @@ function handleMouseUp(carte) {
         noteFonction.push(som);
         tourFonction();
         return;
-    } else if (regle === 'majoritéRelative') {
-        // function majRelative()
     }
 }
 
@@ -408,7 +419,7 @@ function debat(joueurMin, voteMin, joueurMax, voteMax){
     hideSidebar.classList.remove("show");
     hideSidebar.style.opacity = "0";
 
-    // On affiche la zone de débat 
+    // On affiche la première zone de débat 
     var showDebat = document.getElementById("debat1");
     showDebat.style.visibility = "visible";
     showDebat.classList.add("show");
@@ -434,12 +445,14 @@ function validAvis1() {
         console.error('Erreur lors de l\'enregistrement dans le Local Storage:', error);
         alert('Erreur lors de l\'enregistrement dans le Local Storage. Veuillez consulter la console pour plus d\'informations.');
     }
+    // On masque la première zone de débat : 
     document.getElementById('zone_debat1').value = '';
     var hideDebat = document.getElementById("debat1");
     hideDebat.style.visibility = "hidden";
     hideDebat.classList.remove("show");
     hideDebat.style.opacity = "0";
 
+    // On affiche la seconde zone de débat : 
     var showDebat = document.getElementById("debat2");
     showDebat.style.visibility = "visible";
     showDebat.classList.add("show");
@@ -462,17 +475,21 @@ function validAvis2(){
         alert('Erreur lors de l\'enregistrement dans le Local Storage. Veuillez consulter la console pour plus d\'informations.');
     }
 
+    // On masque la seconde zone de débat : 
     document.getElementById('zone_debat2').value = '';
     var hideDebat = document.getElementById("debat2");
     hideDebat.style.visibility = "hidden";
     hideDebat.classList.remove("show");
     hideDebat.style.opacity = "0";
 
+    // On affiche les cartes 
     var showCartes = document.getElementById("deck");
     showCartes.style.visibility = "visible";
     showCartes.classList.add("show");
     showCartes.style.opacity="1";
 
+
+    // On affiche le pseudo du joueur qui doit voter : 
     var showSidebar = document.getElementById("sidebar");
     showSidebar.style.visibility = "visible";
     showSidebar.classList.add("show");
