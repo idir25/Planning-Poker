@@ -33,9 +33,9 @@ Le code est organisé de manière logique pour faciliter la compréhension et la
 # Contribuer
 Si vous souhaitez contribuer, suivez ces étapes :
 1.	Fork du projet.
-2.	Créez une branche pour votre fonctionnalité : git checkout -b fonctionnalite-incroyable.
-3.	Committez vos modifications : git commit -m 'Ajout de la fonctionnalité incroyable'.
-4.	Poussez la branche : git push origin fonctionnalite-incroyable.
+2.	Créez une branche pour votre fonctionnalité : git checkout -b fonctionnalite-new.
+3.	Committez vos modifications : git commit -m 'Ajout de la fonctionnalité new'.
+4.	Poussez la branche : git push origin fonctionnalite-new.
 5.	Ouvrez une pull request.
    
 
