@@ -1,19 +1,10 @@
 // gestion des effets sonores : 
 const audio = new Audio("select.mp3");
-
 const son = () => {
   const audio = new Audio();
   audio.src = "./enter.mp3";
   audio.play();
 };
-
-/*
-// On vérifie si la page est "accueil2.html" :
-if (window.location.href.indexOf("accueil2.html") > -1){
-    document.getElementById("reprendre").addEventListener("click", chargerPartie);
-}
-*/
-
 
 // On vérifie si la page est "initilisation.html" :
 if (window.location.href.indexOf("initiallisation.html") > -1) {
@@ -71,19 +62,19 @@ function redirectToAcceuil2() {
 
 ///////////////////////////////////// Page accueil2.html ///////////////////////////////////
 
-/*
-function chargerPartie(){
-    document.getElementById("choixFichier").click();
-}
 
-// Ajoutez un gestionnaire d'événements pour le changement de fichier sélectionné
-document.getElementById("choixFichier").addEventListener("change", function(event) {
-    // Accédez au fichier sélectionné
-    var fichier = event.target.files[0];
-    // Faites quelque chose avec le fichier, par exemple, affichez son nom
-    alert("Fichier sélectionné : " + fichier.name);
-});
-*/
+// function chargerPartie(){
+//     document.getElementById("choixFichier").click();
+// }
+
+// // Ajoutez un gestionnaire d'événements pour le changement de fichier sélectionné
+// document.getElementById("choixFichier").addEventListener("change", function(event) {
+//     // Accédez au fichier sélectionné
+//     var fichier = event.target.files[0];
+//     // Faites quelque chose avec le fichier, par exemple, affichez son nom
+//     alert("Fichier sélectionné : " + fichier.name);
+// });
+
 
 
 
